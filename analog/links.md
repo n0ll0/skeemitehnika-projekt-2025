@@ -7,4 +7,4 @@
 
 ## Forums
 
-
+[voltage to LED array](https://www.electronics-tutorials.ws/combination/analogue-to-digital-converter.html)
