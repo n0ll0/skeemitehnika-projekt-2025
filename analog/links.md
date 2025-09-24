@@ -8,3 +8,6 @@
 ## Forums
 
 [voltage to LED array](https://www.electronics-tutorials.ws/combination/analogue-to-digital-converter.html)
+
+[current to voltage converter](https://www.caretxdigital.com/)
+![current to voltage converter](https://i0.wp.com/electronics-course.com/image/i2v-opamp-source.png?strip=all)
