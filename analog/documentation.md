@@ -11,7 +11,8 @@ MCP6002 has 2 opamps
 
 ### Idea 2
 
-...
+![I was thinking of this, just without the decoder](./voltage-to-LED-array.png)
+[voltage to LED array](https://www.electronics-tutorials.ws/combination/analogue-to-digital-converter.html)
 
 ## Comparator Design for Light Intensity Measurement
 
