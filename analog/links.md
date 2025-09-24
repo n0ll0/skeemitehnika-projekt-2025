@@ -11,3 +11,5 @@
 
 [current to voltage converter](https://www.caretxdigital.com/)
 ![current to voltage converter](https://i0.wp.com/electronics-course.com/image/i2v-opamp-source.png?strip=all)
+
+[1 MHz, Single-Supply, Photodiode Amplifier Reference Design](https://www.ti.com/lit/ug/tidu535/tidu535.pdf?ts=1758689175858)
