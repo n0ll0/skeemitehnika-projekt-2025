@@ -4,6 +4,7 @@
 
 [MCP6002](https://www.alldatasheet.com/html-pdf/195202/MICROCHIP/MCP6002/486/1/MCP6002.html)
 [LM324N](https://www.alldatasheet.com/html-pdf/17880/PHILIPS/LM324N/245/1/LM324N.html)
+[BPW34](https://www.alldatasheet.com/html-pdf/26251/VISHAY/BPW34/547/3/BPW34.html)
 
 ## Forums
 
