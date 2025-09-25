@@ -1,29 +1,54 @@
-# Arduino digital input extension
+# Arduino Nano digisisendi laiendus
 
-Create a circuit that takes in 2 digital signals:
-1. mechanical contact that is Active Low (pulled to ground when closed)
-2. any digital signal that is Active High
+Luua skeem, mille sisendiks on 2 digitaalset signaali:
+1. mehaaniline kontakt, mis on aktiivne kui loogiline 0 (Active Low)
+2. suvaline digitaalne signaal, mis on aktiivne kui loogiline 1 (Active High)
 
-The output should be equivalent to OR
+Arvestades ühe inverteeritud sisendiga, käitub skeem kui OR värav
 
-**General solution**
+**Üldine lahendus**
 
 ![general solution with black box](./digi_1.png)
 
-## Possible solutions
+## Võimalikud lahendused
 
-**Using diodes**
+**Kasutades dioode**
+
+NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasutada PNP transistori
+
+**+**
+  * kerge kokku panna
+  * nõuab vähe komponente
+
+**-**
+  * väljund langeb dioodi pingelangu võrra
+    
 
 ![OR gate with diodes](./digi_2.png)
 
-**Transistors - OR and NOR**
+**Transistoritega - OR ja NOR**
+
+Üldiselt kasutatakse NOR kuna väljund on otse toitega ühendatud, OR väljund on baas emitter siirde tõttu madalam kui totepinge.
+
+**+**
+  * vähe komponente
+
+**-**
+  * ?
 
 ![NOR and OR using pnp transistors](./digi_3.png)
 
-**Using only IC logic gates**
+**Kasutades ainult antud loogiliste väravate integraalskeeme**
 
-the NOR can be replaced with NAND, there is no difference
+NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasutada PNP transistori
 
-also the pull down resistor can be configured in the Arduino Nano so that can be removed aswell
+Pull-down takistit võib välja jätta kui konfigureerida seda Arduino Nano's
+
+**+**
+  * ei tea
+    
+**-**
+  * ...
 
 ![OR gate using NAND ICs](./digi_4.png)
+
