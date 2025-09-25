@@ -15,7 +15,7 @@ Mis komponendid on meile saadaval:
 | 1N4148 Diood | 5 | |
 | BZX79-C3V9.113 Zener-diood (3,9V) | 3 | |
 | TMP36 Temp sensor, analoogväljund | 1 | |
-| BPW34 SENSOR PHOTODIODE 850NM 2DIP korpus | 1 | |
+| BPW34 SENSOR PHOTODIODE 850NM 2DIP korpus | 1 | [BPW34](https://www.alldatasheet.com/html-pdf/26251/VISHAY/BPW34/547/3/BPW34.html) |
 | SN74LS02N NOR loogikaskeem | 3 | |
 | SN74LS00N NAND loogikaskeem | 3 | |
 | **Kondensaatorid** | | |
