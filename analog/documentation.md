@@ -35,6 +35,11 @@ MCP6002 has 2 opamps
 [Valgustugevuse mõõtmine fotodioodiga](./analog-scheme.asc)
 ![Valgustugevuse mõõtmine fotodioodiga](./analog-scheme.png)
 
+## Protokoll 09:25
+
+Uko + Karl:
+spent 30min on making the breadboard implementation, then 2-3h on brute force guessing/testing different resistances to achieve correct led outputs on specified luxes.
+
 ## Manually get LUX -> Voltage at 500kO
 
 Plottisin ja arduino plotterilt/monitorilt lugesin pinge väärtuseid V(out) sõlmes

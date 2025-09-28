@@ -14,3 +14,5 @@
 ![current to voltage converter](https://i0.wp.com/electronics-course.com/image/i2v-opamp-source.png?strip=all)
 
 [1 MHz, Single-Supply, Photodiode Amplifier Reference Design](https://www.ti.com/lit/ug/tidu535/tidu535.pdf?ts=1758689175858)
+
+[LTspice's lib for LM324N](https://github.com/fakuivan/ltspice-models/blob/master/LM324.sub)
