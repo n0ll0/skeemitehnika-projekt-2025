@@ -52,3 +52,18 @@ Pull-down takistit võib välja jätta kui konfigureerida seda Arduino Nano's
 
 ![OR gate using NAND ICs](./digi_4.png)
 
+## Testimine
+
+Testimiseks kasutatud meetodid on LTSpice simulatioon ja makettplaadil katsetamine.
+
+### LTSpice simulatsioon
+
+Suht keeruline simuleerida digitaalset skeemi ja skeemist ei saanud kasulikku infot. Digitaalse signaali simuleerimiseks kasutati PULSE allikat, teist sisendit (mis peaks olema mehaaniline lüliti) oli lihtsalt pidevalt 5 V või 0 V, kuna simulatsioonis pole vahet milline neist lülitub.
+
+![LTSpice simulation](./transistor_ltspice.png)
+
+### Makettplaadil katsetamine
+
+Esialgu koostati KiCadis skeem, mis sisaldas mehaanilist lülitit ja Arduinoga juhtivat digitaalset signaali ning väljund ühendatud Arduino analoog sisendisse plottimiseks.
+
+![KiCad schematic](./test_circuit.png)
