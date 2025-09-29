@@ -49,10 +49,15 @@ Plottisin ja arduino plotterilt/monitorilt lugesin pinge väärtuseid V(out) sõ
 | 300 | 1.7  |
 | 500 | 3.25 |
 
+### Finding R*esistance* values
+
+Here we also see if our inventory can get us these answers.
+
 ```sh
 node ./llm-slop/ladder-calc.js --vin 5 --v1 3.25 --v2 1.7 --v3 0.1 --rtot 100000 --tol 0.01 --max-series 5 --inventory
 ```
 
+```terminal
 analog\llm-slop> node ./ladder-calc.js --vin 5 --v1 3.25 --v2 1.7 --v3 0.1 --rtot 100000 --tol 0.01 --max-series 5 --inventory
 Inputs:
   Vin=5 V, targets: V1=3.25 V, V2=1.7 V, V3=0.1 V
@@ -69,5 +74,34 @@ Searching discrete combinations (tol=±1.00%, max 5 in series per leg) …
 
 Predicted nodes with discrete picks:
   V1=3.253 V, V2=1.701 V, V3=0.100 V; current ≈ 50.04 µA
+```
+
+### Version, with brute-force finding the least amount of resistors
+
+(trying rtot and v3)
+
+```terminal
+node ./llm-slop/ladder-calc.js --vin 5 --v1 3.25 --v2 1.7 --v3 0.05 --rtot 50000 --tol 0.1 --max-series 5 --inventory
+...
+---
+Best result found by varying total resistance:
+  Total S=14400 Ω, total parts used: 6
+  R4: 1×220 Ω ≈ 220.00 Ω (err 9.76 Ω, parts 1)
+  R3: 1×4.700 kΩ ≈ 4700.00 Ω (err 14.24 Ω, parts 1)
+  R2: 1×4.700 kΩ ≈ 4700.00 Ω (err 236.00 Ω, parts 1)
+  R1: 1×100 Ω + 1×220 Ω + 1×4.700 kΩ ≈ 5020.00 Ω (err 20.00 Ω, parts 3)
+  Predicted nodes: V1=3.286 V, V2=1.680 V, V3=0.075 V; current ≈ 341.53 µA
+Inputs:
+  Vin=5 V, targets: V1=3.25 V, V2=1.7 V, V3=0.10000000000000007 V
+  Total S=50000 Ω, divider current ≈ 100.00 µA
+Exact resistor values (from formulas):
+  R1=17500.00 Ω, R2=15500.00 Ω, R3=16500.00 Ω, R4=500.00 Ω
+  Predicted nodes with exact R: V1=3.250 V, V2=1.700 V, V3=0.050 V
+...
+```
+
+[script to brute force the resistances](./llm-slop/ladder-calc.js)
 
 [LLM generated formulas](./llm-slop/gen-formulas.md)
+
+NOTE! I can smell a differential equasion here...
