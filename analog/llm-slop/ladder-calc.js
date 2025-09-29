@@ -161,9 +161,9 @@ function humanOhm(x) {
 function main() {
   try {
     const vin = parseNumber('vin', getArg('--vin', '5'));
-    const v1 = parseNumber('v1', getArg('--v1'), true);
-    const v2 = parseNumber('v2', getArg('--v2'), true);
-    const v3 = parseNumber('v3', getArg('--v3'), true);
+    var v1 = parseNumber('v1', getArg('--v1'), true);
+    var v2 = parseNumber('v2', getArg('--v2'), true);
+    var v3 = parseNumber('v3', getArg('--v3'), true);
 
     let rtot = parseNumber('rtot', getArg('--rtot'));
     const current_uA = parseNumber('current-uA', getArg('--current-uA'));
@@ -180,6 +180,84 @@ function main() {
     const useInv = hasFlag('--inventory');
 
     const { r1, r2, r3, r4 } = calcResistors({ vin, v1, v2, v3, rtot });
+    console.log(r4 / r1);
+    console.log(r4 / r2);
+    console.log(r4 / r3);
+    console.log(r4 / r4);
+
+    // Try to minimize total number of components by varying rtot
+    if (doSearch) {
+      let bestResult = null;
+      let bestRtot = null;
+      let minParts = Infinity;
+      let bestPicks = null;
+      let bestNodes = null;
+      let bestLegs = null;
+
+      // Try rtot from 10k to 1M in steps (log scale)
+
+      for (var v3 = 0.001; v3 <= 0.1; v3+=0.001) {
+        for (var tryRtot = 10000; tryRtot <= 500000; tryRtot += 100) {
+          const { r1: tr1, r2: tr2, r3: tr3, r4: tr4 } = calcResistors({ vin, v1, v2, v3, rtot: tryRtot });
+          let inv = useInv ? defaultInventory() : defaultInventory();
+          inv = cloneInventory(inv);
+          const legs = [
+            { name: 'R4', target: tr4 },
+            { name: 'R3', target: tr3 },
+            { name: 'R2', target: tr2 },
+            { name: 'R1', target: tr1 },
+          ];
+          const picksOut = {};
+          let totalParts = 0;
+          let failed = false;
+          for (const leg of legs) {
+            const best = findBestSeriesSum(leg.target, tol, inv, maxSeries);
+            if (!best) {
+              failed = true;
+              break;
+            }
+            applyPicksToInventory(inv, best.picks);
+            picksOut[leg.name] = best;
+            totalParts += best.partCount;
+          }
+          if (!failed && totalParts < minParts) {
+            minParts = totalParts;
+            bestResult = picksOut;
+            bestRtot = tryRtot;
+            bestLegs = legs;
+            const R1s = picksOut.R1.sum;
+            const R2s = picksOut.R2.sum;
+            const R3s = picksOut.R3.sum;
+            const R4s = picksOut.R4.sum;
+            bestNodes = calcNodesFromR({ vin, r1: R1s, r2: R2s, r3: R3s, r4: R4s });
+            bestPicks = {
+              R1: picksOut.R1,
+              R2: picksOut.R2,
+              R3: picksOut.R3,
+              R4: picksOut.R4,
+            };
+          }
+        }
+      }
+      if (bestResult) {
+        console.log('\n---');
+        console.log(`Best result found by varying total resistance:`);
+        console.log(`  Total S=${bestRtot} Ω, total parts used: ${minParts}`);
+        for (const leg of bestLegs) {
+          const pick = bestPicks[leg.name];
+          console.log(
+            `  ${leg.name}: ${formatPicks(pick.picks)} ≈ ${pick.sum.toFixed(2)} Ω` +
+            ` (err ${pick.err.toFixed(2)} Ω, parts ${pick.partCount})`
+          );
+        }
+        console.log(
+          `  Predicted nodes: V1=${bestNodes.v1.toFixed(3)} V, V2=${bestNodes.v2.toFixed(3)} V, V3=${bestNodes.v3.toFixed(3)} V; ` +
+          `current ≈ ${(bestNodes.current * 1e6).toFixed(2)} µA`
+        );
+      } else {
+        console.log('\nNo solution found with fewer parts by varying total resistance.');
+      }
+    }
     const { v1: pv1, v2: pv2, v3: pv3, current } = calcNodesFromR({ vin, r1, r2, r3, r4 });
 
     console.log('Inputs:');
@@ -210,7 +288,7 @@ function main() {
         picksOut[leg.name] = best;
         console.log(
           `  ${leg.name}: ${formatPicks(best.picks)} ≈ ${best.sum.toFixed(2)} Ω` +
-            ` (err ${(best.err).toFixed(2)} Ω, parts ${best.partCount})`
+          ` (err ${(best.err).toFixed(2)} Ω, parts ${best.partCount})`
         );
       }
 
@@ -223,7 +301,7 @@ function main() {
         console.log('\nPredicted nodes with discrete picks:');
         console.log(
           `  V1=${nodes.v1.toFixed(3)} V, V2=${nodes.v2.toFixed(3)} V, V3=${nodes.v3.toFixed(3)} V; ` +
-            `current ≈ ${(nodes.current * 1e6).toFixed(2)} µA`
+          `current ≈ ${(nodes.current * 1e6).toFixed(2)} µA`
         );
       }
     }
