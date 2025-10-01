@@ -59,13 +59,13 @@ NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasu
 **-**
   * ?
 
+![NOR and OR using pnp transistors](./digi_3.png)
+
 **Täislahendus koos inverteriga**
 
 Kuigi see on inverteeritud OR, saab väljundi programmatiliselt inverteerida, sest see on Arduino sisendiks.
 
 ![Full solution using transistors](./nor_with_inverter.png)
-
-![NOR and OR using pnp transistors](./digi_3.png)
 
 **Kasutades ainult antud loogiliste väravate integraalskeeme**
 
