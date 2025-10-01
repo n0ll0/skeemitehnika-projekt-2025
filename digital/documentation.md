@@ -10,8 +10,31 @@ Arvestades ühe inverteeritud sisendiga, käitub skeem kui OR värav
 
 ![general solution with black box](./digi_1.png)
 
+**Truth table**
+
+| Mehaaniline lüliti | Digitaalne signaal | Väljund |
+|--------------------|--------------------|---------|
+| 0                  | 0                  | 1       |
+| 0                  | 1                  | 1       |
+| 1                  | 0                  | 0       |
+| 1                  | 1                  | 1       |
+
+Disjunktiivne normaalkuju (DNF): A'B' + A'B + AB
+
+Kleepimisseadus A'B' + A'B = A'
+
+Minimaalne DNF kuju:
+ A' + AB = A' + B
+
+ Tesite sõnadega sisend A inverteeritakse ja seejärel OR'itakse sisendiga B.
+
 ## Võimalikud lahendused
 
+**Igas lahenduses peab olema inverter**
+
+Näiteks inverter ühe PNP transistoriga.
+
+![Inverter using PNP transistor](./pnp_inverter.png)
 **Kasutades dioode**
 
 NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasutada PNP transistori
@@ -35,6 +58,12 @@ NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasu
 
 **-**
   * ?
+
+**Täislahendus koos inverteriga**
+
+Kuigi see on inverteeritud OR, saab väljundi programmatiliselt inverteerida, sest see on Arduino sisendiks.
+
+![Full solution using transistors](./nor_with_inverter.png)
 
 ![NOR and OR using pnp transistors](./digi_3.png)
 
