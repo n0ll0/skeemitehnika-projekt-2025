@@ -10,9 +10,9 @@ Arvestades ühe inverteeritud sisendiga, käitub skeem kui OR värav
 
 ![general solution with black box](./digi_1.png)
 
-**Truth table**
+**Tõeväärtustabel**
 
-| Mehaaniline lüliti | Digitaalne signaal | Väljund |
+| Mehaaniline lüliti (A) | Digitaalne signaal (B) | Väljund |
 |--------------------|--------------------|---------|
 | 0                  | 0                  | 1       |
 | 0                  | 1                  | 1       |
@@ -28,6 +28,22 @@ Minimaalne DNF kuju:
 
  Tesite sõnadega sisend A inverteeritakse ja seejärel OR'itakse sisendiga B.
 
+
+---
+
+Samuti sobib ka inverteeritud väljund
+| Mehaaniline lüliti (A) | Digitaalne signaal (B) | Väljund |
+|--------------------|--------------------|---------|
+| 0                  | 0                  | 0       |
+| 0                  | 1                  | 0       |
+| 1                  | 0                  | 1       |
+| 1                  | 1                  | 0       |
+
+Minimaalne DNF kuju: AB'
+
+**Järeldus:** 
+Mõlemad AB' ja A' + B skeemid sobivad, kuna kohvris on nii NOR kui ka NAND. NOR skeemis on mehaaniline lüliti inverteeritud, NAND skeemis aga digitaalne signaal.
+
 ## Võimalikud lahendused
 
 **Igas lahenduses peab olema inverter**
@@ -35,7 +51,7 @@ Minimaalne DNF kuju:
 Näiteks inverter ühe PNP transistoriga.
 
 ![Inverter using PNP transistor](./pnp_inverter.png)
-**Kasutades dioode**
+### **Kasutades dioode**
 
 NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasutada PNP transistori
 
@@ -49,7 +65,7 @@ NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasu
 
 ![OR gate with diodes](./digi_2.png)
 
-**Transistoritega - OR ja NOR**
+### **Transistoritega - OR ja NOR**
 
 Üldiselt kasutatakse NOR kuna väljund on otse toitega ühendatud, OR väljund on baas emitter siirde tõttu madalam kui totepinge.
 
@@ -61,13 +77,19 @@ NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasu
 
 ![NOR and OR using pnp transistors](./digi_3.png)
 
-**Täislahendus koos inverteriga**
+### **Täislahendus koos inverteriga**
 
 Kuigi see on inverteeritud OR, saab väljundi programmatiliselt inverteerida, sest see on Arduino sisendiks.
 
 ![Full solution using transistors](./nor_with_inverter.png)
 
-**Kasutades ainult antud loogiliste väravate integraalskeeme**
+### PNP inverter + NOR IC
+
+LTSpice pakub ainult OR ja AND integraalskeeme, seega selle skeem on Falstad'i simulaatoris.
+
+![NOR using IC and PNP inverter](./transistor_with_nor_ic.png)
+
+### **Kasutades ainult antud loogiliste väravate integraalskeeme**
 
 NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasutada PNP transistori
 
@@ -87,7 +109,9 @@ Testimiseks kasutatud meetodid on LTSpice simulatioon ja makettplaadil katsetami
 
 ### LTSpice simulatsioon
 
-Suht keeruline simuleerida digitaalset skeemi ja skeemist ei saanud kasulikku infot. Digitaalse signaali simuleerimiseks kasutati PULSE allikat, teist sisendit (mis peaks olema mehaaniline lüliti) oli lihtsalt pidevalt 5 V või 0 V, kuna simulatsioonis pole vahet milline neist lülitub.
+Digitaalse signaali simuleerimiseks kasutati PULSE allikat, teist sisendit (mis peaks olema mehaaniline lüliti) oli lihtsalt pidevalt 5 V või 0 V, kuna simulatsioonis pole vahet milline neist lülitub. 
+
+Signaalide interferentsi uurimist pole veel tehtud ning meetod, kuidas seda mõõta veel uurimise all.
 
 ![LTSpice simulation](./transistor_ltspice.png)
 
