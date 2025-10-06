@@ -105,3 +105,35 @@ Exact resistor values (from formulas):
 [LLM generated formulas](./llm-slop/gen-formulas.md)
 
 NOTE! I can smell a differential equasion here...
+
+#### The formula used to get the resistances:
+
+$$
+\begin{aligned}
+  &R_1=R\cdot\frac{V_{in}-V_1}{V_{in}} \\
+  &R_2=R\cdot\frac{V_1-V_2}{V_{in}} \\
+  &R_3=R\cdot\frac{V_2-V_3}{V_{in}} \\
+  &R_4=R\cdot\frac{V_3}{V_{in}}
+\end{aligned}
+$$
+
+If $0V<V_3<0.1V$ and $100Ω<R\le 1MΩ$, find R that gets to use least amount of components in the box.
+
+
+also if $R_1,R_2,R_3,R_4$ were taken as relative, they can be written relative to $R_4$, so we get constants, and with these constants we can iterate through values of R to get the setting in which minimum amount of components is used (and gets minimum amount of error).
+
+$$
+\begin{aligned}
+  &\frac{R_1}{R_4} = \frac{V_{in}-V_1}{V_3} \\
+  &\frac{R_2}{R_4} = \frac{V_1-V_2}{V_3} \\
+  &\frac{R_3}{R_4} = \frac{V_2-V_3}{V_3}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+  &\frac{R_1}{R_4} = \frac{5V-3.2V}{V_3} \\
+  &\frac{R_2}{R_4} = \frac{3.2V-1.7V}{V_3} \\
+  &\frac{R_3}{R_4} = \frac{1.7V-V_3}{V_3}
+\end{aligned}
+$$
