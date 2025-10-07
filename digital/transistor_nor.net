@@ -1,0 +1,20 @@
+* C:\Users\Dmitr\Desktop\apps_archive\skeemitehnika-projekt-2025\digital\transistor_nor.asc
+V1 A 0 5
+V2 B 0 PULSE(1 0 0 .5m .5m 50m 100m)
+Q1 OUT N001 0 0 2N3904
+Q2 OUT N003 0 0 2N3904
+R1 N001 A 1k
+R2 N003 N002 1k
+V3 Vcc 0 5
+R3 Vcc OUT 1k
+Q3 N002 N005 0 0 2N3904
+S1 N004 Vcc B 0 S1
+R4 N005 N004 4.7k
+R5 Vcc N002 1k
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\Dmitr\AppData\Local\LTspice\lib\cmp\standard.bjt
+.tran 0 1 0 startup
+.model S1 SW()
+.backanno
+.end
