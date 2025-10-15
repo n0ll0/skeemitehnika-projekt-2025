@@ -6,9 +6,9 @@ Luua skeem, mille sisendiks on 2 digitaalset signaali:
 
 Arvestades ühe inverteeritud sisendiga, käitub skeem kui OR värav
 
-**Üldine lahendus**
+## Üldine lahendus
 
-![general solution with black box](./digi_1.png)
+![general solution with black box](./test_circuit.png)
 
 **Tõeväärtustabel**
 
@@ -79,9 +79,11 @@ NOR võib asendada ka NAND'ga kuna inverteri jaoks vahet pole, samuti võib kasu
 
 ### **Täislahendus koos inverteriga**
 
+Sisend B on inverteeritud, kasutades NPN transistorit.
+
 Kuigi see on inverteeritud OR, saab väljundi programmatiliselt inverteerida, sest see on Arduino sisendiks.
 
-![Full solution using transistors](./nor_with_inverter.png)
+![Full solution using transistors](./detailed_circuit_drawing_fixed.png)
 
 ### PNP inverter + NOR IC
 
@@ -113,10 +115,10 @@ Digitaalse signaali simuleerimiseks kasutati PULSE allikat, teist sisendit (mis 
 
 Signaalide interferentsi uurimist pole veel tehtud ning meetod, kuidas seda mõõta veel uurimise all.
 
-![LTSpice simulation](./transistor_ltspice.png)
+![LTSpice simulation](./detailed_circuit_drawing_sim.png)
 
 ### Makettplaadil katsetamine
 
-Esialgu koostati KiCadis skeem, mis sisaldas mehaanilist lülitit ja Arduinoga juhtivat digitaalset signaali ning väljund ühendatud Arduino analoog sisendisse plottimiseks.
+Esialgu koostati KiCadis skeem, mis sisaldas mehaanilist lülitit ja Arduinoga juhtivat digitaalset signaali ning väljund ühendatud Arduino analoog sisendisse (vt. [Üldine lahendus](#üldine-lahendus)).
 
-![KiCad schematic](./test_circuit.png)
+![Tinkercad schematic](./tinkercad_diode_test.png)
