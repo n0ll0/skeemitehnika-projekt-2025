@@ -127,11 +127,11 @@ Mõõtetulemused reaalse dioodi skeemiga. Lisaks mõõtsime väljundit ka Arduin
 
 | Source      | inv. SW (V) | Digital (V) | OUT (Arduino) | OUT (Multimeter) | OUT (V) |
 |------------|-------------|-------------|---------------|----------------|---------|
-| Multimeter | 0.92 / 0    | -0,2        | 0,64          | 0,43           |         |
-| Multimeter | 0.92        | 4,8         | 4,4           | 4,03           |         |
-| Multimeter | 4.77        | -0,01       | 4,36          | 4,19           |         |
-| Multimeter | 4.80        | 4,8         | 4,4           | 4,26           |         |
-| LTSpice    | 0.677       | 0           |               |                | 0,259   |
-| LTSpice    | 0.68        | 5           |               |                | 4,45    |
-| LTSpice    | 4.77        | 0           |               |                | 4,22    |
-| LTSpice    | 4,81        | 5           |               |                | 4,45    |
+| Real       | 0,92       | -0,2        | 0,64          | 0,43           |         |
+| Real       | 0,92       | 4,8         | 4,4           | 4,03           |         |
+| Real       | 4,77       | -0,01       | 4,36          | 4,19           |         |
+| Real       | 4,80       | 4,8         | 4,4           | 4,26           |         |
+| LTSpice    | 0,677      | 0           |               |                | 0,259   |
+| LTSpice    | 0,68       | 5           |               |                | 4,45    |
+| LTSpice    | 4,77       | 0           |               |                | 4,22    |
+| LTSpice    | 4,81       | 5           |               |                | 4,45    |
