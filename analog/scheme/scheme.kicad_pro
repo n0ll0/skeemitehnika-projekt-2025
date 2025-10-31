@@ -639,7 +639,7 @@
         "version": 0
       },
       "model_mode": 4,
-      "workbook_filename": ""
+      "workbook_filename": "scheme.wbk"
     },
     "page_layout_descr_file": "empty.kicad_wks",
     "plot_directory": "",
