@@ -137,3 +137,7 @@ $$
   &\frac{R_3}{R_4} = \frac{1.7V-V_3}{V_3}
 \end{aligned}
 $$
+
+## Muutsime skeemi v2
+
+esimene LED on nüüd kogu aeg käimas.
