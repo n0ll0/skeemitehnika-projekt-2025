@@ -5225,6 +5225,17 @@
 		(layer "Edge.Cuts")
 		(uuid "b8288aac-1bd8-420d-904b-9aaf54f1435c")
 	)
+	(gr_text "Peale vaadates on trükkplaat üsna kena, aga mõned asjad jäid silma\n1) Komponentide nimed R5, R6 ja D4 on kindlasti liiga trükkplaadi ääre lähedal\n2) Mõelge kindlasti, kas saate 0603 komponentide jootmisega hakkama\n3) Hetkel on trükkplaadi rajad 0.2 mm ehk ac 8 milsi laiad. ise soovitan rajad teha kindlasti 10/10\nreeglite järgi, kusjuures toite rajad soovitan teha isegi laiemad, kuni 40 mils. \nKuna plaadil ruumi on, siis ega paha ei tee, kui ka muud rajad on laiemad\n4) lisage nn Power good LED (ehk toitesse üks, mis lihtaslt indikeerib, kas toide on olemas või ei)\n5) Soovitan mõelda, et kas trükkplaat läheb ka kusagile korpusesse ja siis teha \ntrükkplaadi väliskuju korpuse järgi\n6) Viade suurus on hetkel 03/06, soovitan vähemalt 05/08 suurust\n7) Võite kaaluda ka valgusdioodide SMD vastu vahetamisele (aga see on teie otsus).\nKui seade läheb nt korpusesse, ehk ongi THT komponent parem).\n8) U1 on ka kindlasti SMD-na saadaval. Kaaluge, kas selle kasutamine võiks anda mingisuguseid eeliseid\n9) Skeemis vististi mainisin, aga U1 tahab kindlasti toitekondensaatorit ning sisend tahab kaitsmist\n10) Paigutuse mõistes mõelge sellele, et kuivõrd D2-D4 võivad hakata mõjutama mõõtetulemusi. Ehk on kasulikum D2-D4\npaigutada nii, et nad saab plaadiga tasapinda panna (hetkel 90 kraadise nurga all)\n11) Ehk on toite osas mõistlik mõelda mingisuguse patarei lahenduse peale (+ siis sisse/väljalülitamiseks\nmingisugune lüliti ka)\n"
+		(at 107.6 127.8 0)
+		(layer "F.Cu")
+		(uuid "fe6c6ec9-2a46-43ed-8a5e-64875c9288f6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+	)
 	(segment
 		(start 147.195 94.54)
 		(end 154.815 94.54)
