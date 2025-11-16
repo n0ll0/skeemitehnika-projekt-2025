@@ -141,3 +141,11 @@ $$
 ## Muutsime skeemi v2
 
 esimene LED on nüüd kogu aeg käimas.
+
+## Power supply
+
+Kunagi on vaja 5V toidet, aga meil on ainult 9V patarei.
+[9V to 5V power supply](https://somanytech.com/9v-to-5v-converter-circuit/#:~:text=A%209v%20to%205v%20voltage%20regulator%20can%20be,output%20current%20as%20applied%20at%20the%20input%20end.)
+![9V to 5V LM317](https://somanytech.com/wp-content/uploads/2020/01/ckt4-Lm-317new-e1684911691276-768x387.jpg)
+
+$V_o≈1.25(1+\frac{R2}{R1})$

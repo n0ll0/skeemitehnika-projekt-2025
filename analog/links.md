@@ -16,3 +16,5 @@
 [1 MHz, Single-Supply, Photodiode Amplifier Reference Design](https://www.ti.com/lit/ug/tidu535/tidu535.pdf?ts=1758689175858)
 
 [LTspice's lib for LM324N](https://github.com/fakuivan/ltspice-models/blob/master/LM324.sub)
+
+[9V to 5V power supply](https://somanytech.com/9v-to-5v-converter-circuit/#:~:text=A%209v%20to%205v%20voltage%20regulator%20can%20be,output%20current%20as%20applied%20at%20the%20input%20end.)
