@@ -4191,7 +4191,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "794d2bc5-3508-414a-979f-9beeac2745dd")
-		(property "Reference" "R12"
+		(property "Reference" "R10"
 			(at 95.25 24.1299 0)
 			(effects
 				(font
@@ -4245,7 +4245,7 @@
 		(instances
 			(project ""
 				(path "/592a964a-3b7b-4079-9a16-282b0fdb7c03"
-					(reference "R12")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -4261,7 +4261,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7d088d17-db33-45b7-8893-7ec548dd76a1")
-		(property "Reference" "R10"
+		(property "Reference" "R8"
 			(at 57.15 74.93 90)
 			(effects
 				(font
@@ -4313,7 +4313,7 @@
 		(instances
 			(project "scheme"
 				(path "/592a964a-3b7b-4079-9a16-282b0fdb7c03"
-					(reference "R10")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -4556,7 +4556,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Battery:BatteryClip_Keystone_54_D16-19mm"
+		(property "Footprint" "Battery:BatteryHolder_Eagle_12BH611-GR"
 			(at 16.51 32.766 90)
 			(effects
 				(font
@@ -4623,7 +4623,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_SMDSocket_SmallPads"
 			(at 91.44 52.07 0)
 			(effects
 				(font
@@ -5090,7 +5090,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a65c8e8c-7476-4260-bfe1-74a330d1758e")
-		(property "Reference" "R11"
+		(property "Reference" "R9"
 			(at 58.42 48.26 90)
 			(effects
 				(font
@@ -5142,7 +5142,7 @@
 		(instances
 			(project "scheme"
 				(path "/592a964a-3b7b-4079-9a16-282b0fdb7c03"
-					(reference "R11")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -5158,7 +5158,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a6cc54a5-9a3f-4f65-8d3c-6487a5bb7268")
-		(property "Reference" "F?"
+		(property "Reference" "F1"
 			(at 49.53 15.24 0)
 			(effects
 				(font
@@ -5174,7 +5174,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FUSC3216X115N"
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 54.61 20.32 0)
 			(effects
 				(font
@@ -5272,7 +5272,7 @@
 		(instances
 			(project ""
 				(path "/592a964a-3b7b-4079-9a16-282b0fdb7c03"
-					(reference "F?")
+					(reference "F1")
 					(unit 1)
 				)
 			)
@@ -5446,7 +5446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_SMDSocket_SmallPads"
 			(at 39.37 105.41 0)
 			(effects
 				(font
@@ -5721,7 +5721,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_SMDSocket_SmallPads"
 			(at 43.18 83.82 0)
 			(effects
 				(font
@@ -5911,7 +5911,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf65dc19-3ec9-4366-8a9f-5c8a20ccedf8")
-		(property "Reference" "R9"
+		(property "Reference" "R7"
 			(at 57.15 60.96 90)
 			(effects
 				(font
@@ -5963,7 +5963,7 @@
 		(instances
 			(project "scheme"
 				(path "/592a964a-3b7b-4079-9a16-282b0fdb7c03"
-					(reference "R9")
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -5995,7 +5995,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_SMDSocket_SmallPads"
 			(at 43.18 69.85 0)
 			(effects
 				(font
@@ -6134,7 +6134,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_SMDSocket_SmallPads"
 			(at 86.36 69.85 0)
 			(effects
 				(font
