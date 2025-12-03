@@ -52,7 +52,7 @@ Projekti jaoks oli saadaval järgmine komplekt:
 
 Komponente testiti järgmiselt:
 - **Takistid:** mõõdetud multimeetriga, võrreldi nimiväärtusega (±1% tolerants)
-- **LED-id:** testitud 5V toitel läbi 220Ω takisti
+- **LED-id:** testitud 5V toitel läbi 220Ω või 1kΩ takisti
 - **Transistorid:** kontrolliti dioodirežiimis multimeetriga BE ja BC siirdeid
 - **Op-ampid:** testiti voltage follower konfiguratsiooniga
 - **Fotodiood BPW34:** testiti pöördpingestatud režiimis valgustundlikkust
