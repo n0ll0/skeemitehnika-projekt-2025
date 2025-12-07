@@ -14,7 +14,7 @@
 
 ## 1. Sissejuhatus
 
-Käesolev aruanne kirjeldab kahe skeemitehnika projekti läbiviimist IEE1030 aine raames. Esimene projekt keskendub Arduino Nano digitaalse sisendi laiendamisele analoogkomponentidega, teine projekt valgustugevuse mõõtmisele fotodioodiga vahemikus 300–500 luksi.
+Käesolev aruanne kirjeldab kahe skeemitehnika projekti läbiviimist IEE1030 aine raames. Esimene projekt keskendub Arduino Nano digitaalse sisendi laiendamisele analoogkomponentidega, teine projekt valgustugevuse mõõtmisele fotodioodiga vahemikus 300-500 luksi.
 
 ---
 
@@ -42,7 +42,7 @@ Projekti jaoks oli saadaval järgmine komplekt:
 | Kondensaatorid: 22pF, 100nF, 1µF, 10µF, 100µF | 5 tk igaüks |
 | 100mH Induktiivpool | 1 |
 | Surunupud | 5 |
-| Takistid: 100Ω, 220Ω, 1kΩ, 4.7kΩ, 10kΩ, 47kΩ, 100kΩ, 1MΩ | 5–20 tk |
+| Takistid: 100Ω, 220Ω, 1kΩ, 4.7kΩ, 10kΩ, 47kΩ, 100kΩ, 1MΩ | 5-20 tk |
 | 10kΩ trimmer potentsiomeeter | 5 |
 | Breadboard 830 points | 1 |
 | DC power supply 9-12V → 5V/3.3V | 1 |
@@ -73,16 +73,16 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
 ### 3.2 Projekt 2: Valgustugevuse mõõtmine fotodioodiga
 
-**Püstitus:** Koostada skeem, mis hindab valgustatust vahemikus 300–500 luksi, kasutades kolme LED-i:
+**Püstitus:** Koostada skeem, mis hindab valgustatust vahemikus 300-500 luksi, kasutades kolme LED-i:
 - Punane: valgustatus alla 300 lx
-- Kollane: valgustatus 300–500 lx
+- Kollane: valgustatus 300-500 lx
 - Roheline: valgustatus üle 500 lx
 
 **Motivatsioon:** Praktiline rakendus valgustingimuste hindamiseks, kasutades ainult analoogkomponente (Arduino välistatud).
 
 ### 3.3 Uuritud lahendused
 
-#### Analoogprojekt – kolm lahendust:
+#### Analoogprojekt - kolm lahendust:
 
 1. **MCP6002 kahe op-ampiga:**
    - Üks op-amp voolu-pinge muunduriks (transimpedantsivõimendi)
@@ -100,7 +100,7 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
    - Voltage-to-LED array stiilis lahendus
    - *Kombineeriti lahendusega 2*
 
-#### Digiprojekt – kolm lahendust:
+#### Digiprojekt - kolm lahendust:
 
 1. **Dioodidega OR-värav + transistorinverter**
    - Lihtne, vähe komponente
@@ -158,7 +158,7 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
 ## 5. Simulatsioon
 
-### 5.1 Analoogprojekt – LTspice simulatsioon
+### 5.1 Analoogprojekt - LTspice simulatsioon
 
 **Skeemi kirjeldus:**
 
@@ -175,7 +175,7 @@ Mõõdetud seos (500kΩ tagasisidega):
 | 300 | 1.70 V |
 | 500 | 3.25 V |
 
-Pingeredeli valemid (R1–R4 jadaühenduses, Vin=5V):
+Pingeredeli valemid (R1-R4 jadaühenduses, Vin=5V):
 
 $$
 \begin{aligned}
@@ -197,7 +197,7 @@ R4: 220Ω ≈ 0.22kΩ
 ```
 Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
 
-### 5.2 Digiprojekt – LTspice simulatsioon
+### 5.2 Digiprojekt - LTspice simulatsioon
 
 **Tõeväärtustabel:**
 
@@ -231,7 +231,7 @@ Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
 
 **Testimise protokoll (28.09.2025):**
 - Uko + Karl: ~30 min makettplaadi koostamine
-- 2–3h brute-force takistuste testimine LED-väljundite saavutamiseks
+- 2-3h brute-force takistuste testimine LED-väljundite saavutamiseks
 
 **Mõõtetulemused:**
 - 300 lx juures: V(out) ≈ 1.7V ✓
@@ -250,13 +250,13 @@ Testitud dioodidega OR-värav + NPN inverter kombinatsiooni. Väljundpinged lang
 
 ### 7.1 Probleemipüstitus
 
-LM324 op-amp **ei ole rail-to-rail**, kaotab ~1.5V positiivsest toitest. 3.3V toite korral max väljund ~1.8V – ei piisa 3V LED-ide juhtimiseks.
+LM324 op-amp **ei ole rail-to-rail**, kaotab ~1.5V positiivsest toitest. 3.3V toite korral max väljund ~1.8V - ei piisa 3V LED-ide juhtimiseks.
 
 **Lahendus:** 9V Li-Ion aku → 5V lineaarregulaator (L7805)
 
 ### 7.2 Kaitseskeemid
 
-1. **PTC kaitse (RXEF010):** 100mA hold, 200mA trip – lühise kaitse
+1. **PTC kaitse (RXEF010):** 100mA hold, 200mA trip - lühise kaitse
 2. **P-MOSFET (AO3401A):** pöördpolaarsuse kaitse, kadudeta lahendus
 3. **TVS diood (SMBJ9.0A):** ESD ja ülepinge kaitse
 
@@ -325,21 +325,115 @@ Elektriskeem koostati KiCadis, sisaldab:
 
 ## 10. Komponentide maksumus (BOM)
 
-### 10.1 Analoogprojekt
+### 10.1 Analoogprojekt — BOM
 
-| Tootja | Tootja kood | Kogus | Nimetus PCB-l | Edasimüüja | Hind (€) |
-|--------|-------------|-------|---------------|------------|----------|
-| Texas Instruments | LM324N | 1 | U1 | Mouser | 0.45 |
-| Vishay | BPW34 | 1 | D1 | Mouser | 1.20 |
-| ST | L7805CV | 1 | U2 | Mouser | 0.35 |
-| Generic | 1/4W resistors | ~15 | R1-R15 | Mouser | 0.50 |
-| Generic | LED 5mm | 3 | LED1-3 | Mouser | 0.30 |
-| Generic | Caps 100nF, 10µF | 5 | C1-C5 | Mouser | 0.40 |
-| Alpha | RXEF010 | 1 | F1 | Mouser | 0.25 |
-| AOS | AO3401A | 1 | Q1 | Mouser | 0.15 |
-| Littelfuse | SMBJ9.0A | 1 | D2 | Mouser | 0.30 |
-| - | PCB (JLCPCB) | 1 | - | JLCPCB | 2.00 |
-| **KOKKU** | | | | | **~6.00** |
+Komponentide nimekiri on eksporditud KiCadist (`analog/kicad/scheme.csv`).
+
+| Nimetus PCB-l | Kogus | Väärtus | Footprint | Andmeleht | Hind (€) |
+|---------------|-------|---------|-----------|-----------|----------|
+| BT1 | 1 | 9V patareipesa | Battery Holder | [Link](https://www.mouser.com/catalog/specsheets/EPD-200766.pdf) | 1.46 |
+| C1 | 1 | 22pF | 0805 SMD | [Link](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5534/CL21C220JB61PNC%20Spec.pdf) | 0.10 |
+| C2 | 1 | 1µF | 0805 SMD | [Link](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5660/3372_0805B105J250CC.pdf) | 0.10 |
+| C3, C4 | 2 | 10µF | 0805 SMD | [Link](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5660/3372_0805W106K6R3CC.pdf) | 0.32 |
+| C5 | 1 | 100nF | 0805 SMD | [Link](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5491/0805B104K201DC.pdf) | 0.06 |
+| D1 | 1 | BPW34 fotodiood | THT DIL2 | [Link](http://www.vishay.com/docs/81521/bpw34.pdf) | 1.06 |
+| D2, D3, D4 | 3 | LED 5mm | THT horisontaalne | - | 0.30 |
+| D5 | 1 | LED (power) | 0805 SMD | - | 0.05 |
+| D6 | 1 | SMAJ13A TVS | SMA SMD | [Link](https://www.littelfuse.com/media?resourcetype=datasheets&itemid=75e32973-b177-4ee3-a0ff-cedaf1abdb93&filename=smaj-datasheet) | 0.12 |
+| F1 | 1 | PTC kaitse 50mA | 1206 SMD | [Link](https://www.mouser.ee/datasheet/3/508/1/smdh1206.pdf) | 0.09 |
+| R1 | 1 | 220Ω | 0805 SMD | - | 0.02 |
+| R2 | 1 | 500kΩ | 0805 SMD | - | 0.02 |
+| R3, R6 | 2 | 10kΩ | 0805 SMD | - | 0.04 |
+| R4 | 1 | 14.7kΩ | 0805 SMD | - | 0.02 |
+| R5 | 1 | 5kΩ | 0805 SMD | - | 0.02 |
+| R7-R10 | 4 | 1kΩ | 0805 SMD | - | 0.08 |
+| SW1 | 1 | Nidec CAS-120A lüliti | SMD | [Link](https://www.nidec-components.com/e/catalog/switch/cas.pdf) | 1.26 |
+| U1 | 1 | LM7805 regulaator | TO-220 THT | [Link](https://www.onsemi.cn/PowerSolutions/document/MC7800-D.PDF) | 1.55 |
+| U2 | 1 | LM324 op-amp | DIP-14 THT | [Link](http://www.ti.com/lit/ds/symlink/lm2902-n.pdf) | 0.40 |
+| **Komponendid kokku** | | | | | **~7.07** |
+
+#### 10.1.1 Trükkplaadi tootmine (PCBWay)
+
+| Teenus | Kirjeldus | Hind (€) |
+|--------|-----------|----------|
+| PCB tootmine | 2-kihiline, 1.6mm FR4, HASL, 5 tk min | **5.00** |
+| Transport | Eestisse (DHL/ePacket) | ~8-15 |
+| **PCB kokku** | | **~5.00** (+ transport) |
+
+#### 10.1.2 PCBA teenus (SMD komponentide eelpaigaldus)
+
+PCBWay pakub ka **PCBA (PCB Assembly)** teenust, kus tehases joodetatakse SMD komponendid otse plaadile. See on kasulik väikeste 0805 takistite ja kondensaatorite puhul, mille käsitsi jootmine on aeganõudev.
+
+**Eelpaigaldamiseks sobivad komponendid (0805 SMD):**
+
+| Nimetus | Kogus | Väärtus | LCSC kood (näide) |
+|---------|-------|---------|-------------------|
+| C1 | 1 | 22pF | C1804 |
+| C2 | 1 | 1µF | C28323 |
+| C3, C4 | 2 | 10µF | C15850 |
+| C5 | 1 | 100nF | C49678 |
+| D5 | 1 | LED 0805 | C2296 |
+| D6 | 1 | SMAJ13A | C148892 |
+| F1 | 1 | PTC 1206 | C262826 |
+| R1-R10 | 10 | Takistid 0805 | C17513, C17414, jne |
+| SW1 | 1 | Nidec lüliti | - (käsitsi) |
+
+**PCBA hinnakalkulatsioon (PCBWay):**
+
+| Kulu | Hind (€) |
+|------|----------|
+| Seadistustasu (setup fee) | ~8.00 |
+| Jootmistasu (per joint, ~40 jootekoha) | ~2.00 |
+| SMD komponentide hind (LCSC) | ~1.50 |
+| **PCBA kokku (5 plaati)** | **~12-15** |
+| **PCBA ühe plaadi kohta** | **~2.50-3.00** |
+
+#### 10.1.3 Kokkuvõte - Kolm varianti
+
+| Variant | Kirjeldus | Hind ühe komplekti kohta |
+|---------|-----------|--------------------------|
+| **A) Ainult PCB** | Tühi plaat, kõik käsitsi jootmine | PCB: 1€ + komponendid: 7€ = **~8€** |
+| **B) PCB + PCBA (SMD)** | SMD eelpaigaldatud, THT käsitsi | PCB+PCBA: 4€ + THT komponendid: 5€ = **~9€** |
+| **C) Täis PCBA** | Kõik komponendid tehases paigaldatud | ~15-20€ (väikese koguse tõttu kallis) |
+
+**Soovitus:** Variant B on optimaalne - SMD komponendid (takistid, kondensaatorid, TVS, PTC) paigaldatakse tehases, THT komponendid (LM324, LM7805, LED-id, fotodiood, patareipesa) joota ise.
+
+
+#### 10.2 Digiprojekt — BOM
+
+Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
+
+| Nimetus PCB-l | Kogus | Väärtus | Footprint | Hind (€) |
+|---------------|-------|---------|-----------|----------|
+| A1 | 1 | Arduino Nano Socket | THT pistikupesa 2×15 pin | 0.50 |
+| - | 1 | Arduino Nano (ATmega328P) | – | ~5€ (kloon) / ~27€ (originaal) |
+| J1 | 1 | Barrel Jack | THT | 0.30 |
+| J2 | 1 | Screw Terminal 2-pin | THT | 0.20 |
+| F1 | 1 | Polyfuse PTC | SMD/THT | 0.10 |
+| Q1, Q2 | 2 | 2N3904 NPN | TO-92 THT | 0.10 |
+| Q3 | 1 | FDN340P P-MOSFET | SOT-23 SMD | 0.15 |
+| R2, R3, R4 | 3 | 10kΩ | 0805 SMD | 0.06 |
+| R5, R6 | 2 | 4.7kΩ | 0805 SMD | 0.04 |
+| R1 | 1 | 1kΩ | 0805 SMD | 0.02 |
+| R7 | 1 | 33kΩ | 0805 SMD | 0.02 |
+| C2 | 1 | 100nF | 0805 SMD | 0.02 |
+| C1, C4 | 2 | 1µF | 0805 SMD | 0.10 |
+| D1 | 1 | TVS (ESD/Zener) | SMD | 0.10 |
+| D3 | 1 | LED indikaator | THT 5mm | 0.05 |
+| SW1 | 1 | Nidec CAS-120A lüliti | SMD | 1.26 |
+| SW2 | 1 | SPST lüliti (mehaaniline) | THT | 0.20 |
+| **Komponendid (ilma Arduinota)** | | | | **~3.22** |
+| **Komponendid + Arduino (kloon)** | | | | **~8.22** |
+| **Komponendid + Arduino (originaal)** | | | | **~30.22** |
+
+#### 10.2.1 Digiprojekti PCB tootmine
+
+| Teenus | Kirjeldus | Hind (€) |
+|--------|-----------|----------|
+| PCB tootmine (PCBWay) | 2-kihiline, 5 tk | ~5.00 |
+| Transport | Eestisse | ~8-15 |
+
+**Märkus:** Digiprojekti PCB ja passiivsed komponendid on odavad (~3€), kuid Arduino Nano on projekti kalleim osa. Hiina klooniga (AliExpress, ~5€) jääb kogumaksumus madalaks, originaal Arduino Nano (Arduino Store, ~27€) tõstab hinna oluliselt. Projekti jaoks sobib kloon, kuna ATmega328P funktsionaalsus on identne.
 
 ---
 
