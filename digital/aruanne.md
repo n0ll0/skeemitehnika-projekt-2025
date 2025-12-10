@@ -115,7 +115,7 @@ Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne norma
 
 **Minimaalne DNF:** A' + B
 
-Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku panna kasutades käepäraseid komponente. TTL on antud ülesande jaoks ülepingutatud lahendus - see kasutab rohkem komponente kui RTL ja on mõeldud suuremate süsteemide jaoks. Üks karakteristikuteks on 'fan-out', mis tähendab, kui palju järgmise astme väravaid saab ühe värava väljundiga koormata. Võrreldes RTL-iga (lülitusaeg ~12 ns, fan-out 5, müramarginaal 0.2 V) [[rtl-source]] pakub TTL paremat jõudlust: kiirem lülitusaeg (~10 ns)[[ttl-source]], suurem fan-out (kuni 10 väravat) ja sama mürasisekindlus (0.4 V). RTL piisab aga täielikult lihtsa 2-sisendiga loogikafunktsiooni teostamiseks, kus ei ole vaja kiireid lülitumisi ega suurt koormust ajada, mistõttu valiti RTL lahendus kui praktiline ja minimaalsete komponentidega variant.
+Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku panna kasutades käepäraseid komponente. TTL on antud ülesande jaoks ülepingutatud lahendus - see kasutab rohkem komponente kui RTL ja on mõeldud suuremate süsteemide jaoks. Üks karakteristikuteks on 'fan-out', mis tähendab, kui palju järgmise astme väravaid saab ühe värava väljundiga koormata. Võrreldes RTL-iga (lülitusaeg ~12 ns, fan-out 5, müramarginaal 0.2 V) [[rtl-source]] pakub TTL paremat jõudlust: kiirem lülitusaeg (~10 ns)[[ttl-source]], suurem fan-out (kuni 10 väravat) ja müramarginaal (0.4 V). RTL piisab aga täielikult lihtsa 2-sisendiga loogikafunktsiooni teostamiseks, kus ei ole vaja kiireid lülitumisi ega suurt koormust ajada, mistõttu valiti RTL lahendus kui praktiline ja minimaalsete komponentidega variant.
 
 1. **Dioodidega OR-värav + transistor-inverter**
    - Lihtne, vähe komponente
@@ -125,13 +125,16 @@ Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku 
 2. **Transistoritega NOR/OR**
    - Väljund otse toitega ühendatud (NOR)
    - fan-out 5
-   - müramarginaal 0.2 V
-   - *Valitud testimiseks*
+   - müramarginaal võrdne transistori kollektor-emitter küllastuse pingelanguga (2n3904 juhul on see 200 mV halvimal juhul)
+     - $NM_L = V_{IL} - V_{OL} = 0.5 - 0.2 = 0.3$ V
+     - $NM_H = V_{OH} - V_{IH} = 1.071 - 0.866 = 0.2$ V (fan-out=5 juures)
 
 3. **Ainult integraalskeemidega (74LS02 NOR / 74LS00 NAND)**
    - Puhas digitaallahendus, TTL perekond
-   - Kiirem lülitusaeg (~10 ns), parem fan-out (10)
-   - parem müramarginaal (0.4 V)
+   - Kiirem lülitusaeg (~10 ns), suurem fan-out (10)
+   - Parem müramarginaal (sümmeetriline 0.4 V):
+     - $NM_L = V_{IL} - V_{OL} = 0.8 - 0.4 = 0.4$ V
+     - $NM_H = V_{OH} - V_{IH} = 2.4 - 2.0 = 0.4$ V
 
 ---
 
