@@ -102,17 +102,36 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
 #### Digiprojekt - kolm lahendust:
 
-1. **Dioodidega OR-värav + transistorinverter**
+Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne normaalkuju), mis näitab, mis ventiile on vaja. Sobib ka inverteeritud väljund, sest ühendades selle Arduino sisendiga saab loogikat programmaatiliselt vastupidiseks muuta, seega $\overline{A \cdot \overline{B}} = \overline{A} + B$ (De'Morgan'i seadus). Kokku on 2 võimalikku skeemilahendust: OR-venttil inverteeritud A-sisendiga või NAND-venttil inverteeritud B-sisendiga. Antud projektis uuriti kahte loogika perekonda: transistor-takisti (RTL) ja transistor-transistor (TTL) loogikat. RTL kasutab bipolaartransistoreid (BJT), TTL samuti bipolaartransistoreid, ning võrdluseks uuriti ka CMOS-transistoridega lahendusi, kuigi päriselt CMOS'ga makettplaadil pole proovitud, kuna kohvris olid ainult bipolaar.
+
+**Tõeväärtustabel:**
+
+| A (lüliti) | B (signaal) | Väljund |
+|------------|-------------|---------|
+| 0 | 0 | 1 |
+| 0 | 1 | 1 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+**Minimaalne DNF:** A' + B
+
+Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku panna kasutades käepäraseid komponente. TTL on antud ülesande jaoks ülepingutatud lahendus - see kasutab rohkem komponente kui RTL ja on mõeldud suuremate süsteemide jaoks. Üks karakteristikuteks on 'fan-out', mis tähendab, kui palju järgmise astme väravaid saab ühe värava väljundiga koormata. Võrreldes RTL-iga (lülitusaeg ~12 ns, fan-out 5, müramarginaal 0.2 V) [[rtl-source]] pakub TTL paremat jõudlust: kiirem lülitusaeg (~10 ns)[[ttl-source]], suurem fan-out (kuni 10 väravat) ja sama mürasisekindlus (0.4 V). RTL piisab aga täielikult lihtsa 2-sisendiga loogikafunktsiooni teostamiseks, kus ei ole vaja kiireid lülitumisi ega suurt koormust ajada, mistõttu valiti RTL lahendus kui praktiline ja minimaalsete komponentidega variant.
+
+1. **Dioodidega OR-värav + transistor-inverter**
    - Lihtne, vähe komponente
    - *Miinus:* dioodi pingelang vähendab väljundit
+   - Kasutatakse tihti toidete kombineerimiseks, nt. Arduino $V_{in}$ ja 5 V on ühendatud dioodidega.
 
 2. **Transistoritega NOR/OR**
    - Väljund otse toitega ühendatud (NOR)
+   - fan-out 5
+   - müramarginaal 0.2 V
    - *Valitud testimiseks*
 
-3. **Ainult IC-dega (74LS02 NOR / 74LS00 NAND)**
-   - Puhas digitaallahendus
-   - *Alternatiiv*
+3. **Ainult integraalskeemidega (74LS02 NOR / 74LS00 NAND)**
+   - Puhas digitaallahendus, TTL perekond
+   - Kiirem lülitusaeg (~10 ns), parem fan-out (10)
+   - parem müramarginaal (0.4 V)
 
 ---
 
@@ -199,14 +218,18 @@ Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
 
 ### 5.2 Digiprojekt - LTspice simulatsioon
 
-**Tõeväärtustabel:**
+**Simulatsiooni tulemused vs tegelikkus:**
 
-| A (lüliti) | B (signaal) | Väljund |
-|------------|-------------|---------|
-| 0 | 0 | 1 |
-| 0 | 1 | 1 |
-| 1 | 0 | 0 |
-| 1 | 1 | 1 |
+| Allikas | inv. SW (V) | Digital (V) | OUT (V) |
+|---------|-------------|-------------|---------|
+| LTSpice | 0.68 | 0 | 0.26 |
+| LTSpice | 0.68 | 5 | 4.45 |
+| LTSpice | 4.77 | 0 | 4.22 |
+| LTSpice | 4.81 | 5 | 4.45 |
+| Reaalne | 0.92 | -0.2 | 0.43 |
+| Reaalne | 0.92 | 4.8 | 4.03 |
+| Reaalne | 4.77 | -0.01 | 4.19 |
+| Reaalne | 4.80 | 4.8 | 4.26 |
 
 **Minimaalne DNF:** A' + B
 
@@ -230,10 +253,12 @@ Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
 ### 6.1 Analoogprojekt
 
 **Testimise protokoll (28.09.2025):**
+
 - Uko + Karl: ~30 min makettplaadi koostamine
 - 2-3h brute-force takistuste testimine LED-väljundite saavutamiseks
 
 **Mõõtetulemused:**
+
 - 300 lx juures: V(out) ≈ 1.7V ✓
 - 500 lx juures: V(out) ≈ 3.25V ✓
 - LED-id lülituvad õigesti vastavalt läviväärtustele
@@ -533,6 +558,8 @@ Peamised õppetunnid:
 4. Transistor OR gates: http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/trangate.html
 5. Debouncing guide: https://my.eng.utah.edu/%7Ecs5780/debouncing.pdf
 6. 9V to 5V converter: https://somanytech.com/9v-to-5v-converter-circuit/
+7. [rtl-source]: https://eee.poriyaan.in/topic/resistor---transistor-logic--rtl--11599/
+8. [ttl-source]: https://eee.poriyaan.in/topic/transistor-transistor-logic--ttl--11601/
 
 ---
 
