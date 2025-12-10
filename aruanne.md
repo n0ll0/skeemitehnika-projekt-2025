@@ -537,6 +537,28 @@ Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 - KiCadi footprint'ide kontroll enne PCB tellimist
 - Kaitseskeemide integreerimine juba projekti alguses
 
+### 12.3 Karl
+
+**Tehtud tööd:**
+- Esialgsete takistite valik ja takistiredeli analüüs ning selle testimine makettplaadil
+- KiCadi skeemiga aitasin ja PCB koostamine
+- Makettplaadil testimine (koos Ukoga)
+- BoM-i koostamine: hinnavõrdlused ja sobivate alternatiivide leidmine puuduvate või kallimate komponentide korral
+
+**Mis läks hästi:**
+- Reaalsed mõõtetulemused kattusid simulatsioonidega
+- PCB koostamine
+- BoM-i koostamine ja komponentide valik
+
+**Mis läks halvasti:**
+- Üldine ajaplaneerimine oli nõrk: mitmed ülesanded lükkusid edasi
+- Oleks pidanud sagedamini juhendajaga konsulteerima, mis oleks aidanud mõningaid tehnilisi takistusi varem ennetada
+
+**Mida nüüd oskan paremini:**
+- PCB disaini töövoog KiCadis
+- Hinnata erinevate komponentide praktilist sobivust (SMD vs THT) vastavalt projekti keerukusele ja töömahtudele
+- Planeerida aega realistlikumalt ning kaasata juhendaja tagasisidet enne suuremate disainimuudatuste tegemist
+
 ---
 
 ## 13. Kokkuvõte
