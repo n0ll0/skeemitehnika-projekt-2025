@@ -106,7 +106,7 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
 #### Digiprojekt - kolm lahendust:
 
-Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne normaalkuju), mis näitab, mis ventiile on vaja. Sobib ka inverteeritud väljund, sest ühendades selle Arduino sisendiga saab loogikat programmaatiliselt vastupidiseks muuta, seega $\overline{A \cdot \overline{B}} = \overline{A} + B$ (De'Morgan'i seadus). Kokku on 2 võimalikku skeemilahendust: OR-venttil inverteeritud A-sisendiga või NAND-venttil inverteeritud B-sisendiga. Antud projektis uuriti kahte loogika perekonda: transistor-takisti (RTL) ja transistor-transistor (TTL) loogikat. RTL kasutab bipolaartransistoreid (BJT), TTL samuti bipolaartransistoreid, ning võrdluseks uuriti ka CMOS-transistoridega lahendusi, kuigi päriselt CMOS'ga makettplaadil pole proovitud, kuna kohvris olid ainult bipolaar.
+Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne normaalkuju), mis näitab, mis ventiile on vaja. Sobib ka inverteeritud väljund, sest ühendades selle Arduino sisendiga saab loogikat programmaatiliselt vastupidiseks muuta, seega $\overline{A \cdot \overline{B}} = \overline{A} + B$ (De'Morgan'i seadus). Kokku on 2 võimalikku skeemilahendust: OR-ventiil inverteeritud A-sisendiga või NAND-ventiil inverteeritud B-sisendiga. Antud projektis uuriti kahte loogika perekonda: transistor-takisti (RTL) ja transistor-transistor (TTL) loogikat. RTL kasutab bipolaartransistoreid (BJT), TTL samuti bipolaartransistoreid, ning võrdluseks uuriti ka CMOS-transistoridega lahendusi, kuigi päriselt CMOS'ga makettplaadil pole proovitud, kuna kohvris olid ainult bipolaar.
 
 **Tõeväärtustabel:**
 
@@ -119,7 +119,7 @@ Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne norma
 
 **Minimaalne DNF:** A' + B
 
-Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku panna kasutades käepäraseid komponente. TTL on antud ülesande jaoks ülepingutatud lahendus - see kasutab rohkem komponente kui RTL ja on mõeldud suuremate süsteemide jaoks. Üks karakteristikuteks on 'fan-out', mis tähendab, kui palju järgmise astme väravaid saab ühe värava väljundiga koormata. Võrreldes RTL-iga (lülitusaeg ~12 ns, fan-out 5, müramarginaal 0.2 V) [[rtl-source]] pakub TTL paremat jõudlust: kiirem lülitusaeg (~10 ns)[[ttl-source]], suurem fan-out (kuni 10 väravat) ja sama mürasisekindlus (0.4 V). RTL piisab aga täielikult lihtsa 2-sisendiga loogikafunktsiooni teostamiseks, kus ei ole vaja kiireid lülitumisi ega suurt koormust ajada, mistõttu valiti RTL lahendus kui praktiline ja minimaalsete komponentidega variant.
+Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku panna kasutades käepäraseid komponente. TTL on antud ülesande jaoks ülepingutatud lahendus - see kasutab rohkem komponente kui RTL ja on mõeldud suuremate süsteemide jaoks. Üks karakteristikuteks on 'fan-out', mis tähendab, kui palju järgmise astme väravaid saab ühe värava väljundiga koormata. Võrreldes RTL-iga (lülitusaeg sadades ns'tes, fan-out 5, müramarginaal 0.2 V) [[rtl-source]] pakub TTL paremat jõudlust, kiirem lülitusaeg (~10 ns)[[ttl-source]], suurem fan-out (kuni 10 väravat) ja parem müramarginaal (0.4 V). RTL piisab aga täielikult lihtsa 2-sisendiga loogikafunktsiooni teostamiseks, kus ei ole vaja kiireid lülitumisi ega suurt koormust ajada, mistõttu valiti RTL lahendus kui praktiline ja minimaalsete komponentidega variant.
 
 1. **Dioodidega OR-värav + transistor-inverter**
    - Lihtne, vähe komponente
@@ -508,12 +508,31 @@ Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 
 #### 10.2.1 Digiprojekti PCB tootmine
 
-| Teenus | Kirjeldus | Hind (€) |
-|--------|-----------|----------|
-| PCB tootmine (PCBWay) | 2-kihiline, 5 tk | ~5.00 |
-| Transport | Eestisse | ~8-15 |
+## Single PCB Parts
 
-**Märkus:** Digiprojekti PCB ja passiivsed komponendid on odavad (~3€), kuid Arduino Nano on projekti kalleim osa. Hiina klooniga (AliExpress, ~5€) jääb kogumaksumus madalaks, originaal Arduino Nano (Arduino Store, ~27€) tõstab hinna oluliselt. Projekti jaoks sobib kloon, kuna ATmega328P funktsionaalsus on identne.
+| Reference | Part/Value | Description | Type | Quantity | Unit Cost | Cost | Link | DigiKey Part Number | Manufacturer | Manufacturer Product Number |
+| --------- | ---------- | ----------- | ---- | -------- | --------- | ---- | ---- | ------------------- | ------------ | --------------------------- |
+| Q1/Q2/Q4 | 2N3904 | NPN transistor | THT:TO-92 | 3 | $0.14 | $0.42 | [Link](https://www.digikey.ee/en/products/detail/diotec-semiconductor/2N3904/13164701) | 4878-2N3904CT-ND | Diotec Semiconductor | 2N3904 |
+| Q3 | FDN340P | P-channel MOSFET | SMD:SOT-23 | 1 | $0.60 | $0.60 | [Link](https://www.digikey.ee/en/products/detail/onsemi/FDN340P/965304) | FDN340PCT-ND | Onsemi | FDN340P |
+| D1 | ESD5Zxx | Single line TVS diode | SMD:SOD-523 | 1 | $0.10 | $0.10 | [Link](https://www.digikey.ee/en/products/detail/onsemi/ESD5Z2-5T1G/1476605) | ESD5Z2.5T1GOSCT-ND | Onsemi | ESD5Z2.5T1G |
+| D2 | BZT52Bxx | Zener diode | SMD:SOD-123F | 1 | $0.17 | $0.17 | [Link](https://www.digikey.ee/en/products/detail/diotec-semiconductor/BZT52B5V6/22191405) | 4878-BZT52B5V6CT-ND | Diotec Semiconductor | BZT52B5V6 |
+| D3 | LED | LED | SMD 0805 | 1 | $0.11 | $0.11 | [Link](https://www.digikey.ee/en/products/detail/liteon/LTST-C171KGKT/386799) | 160-1426-1-ND | Lite-On | LTST-C171KGKT |
+| D4 | SM6T18A | TVS diode | SMD:SMB | 1 | $0.45 | $0.45 | [Link](https://www.digikey.ee/en/products/detail/stmicroelectronics/SM6T18A/1039077) | 497-7431-1-ND | STMicroelectronics | SM6T18A |
+| F1 | Polyfuse | Polyfuse | SMD 1206 | 1 | $0.56 | $0.56 | [Link](https://www.digikey.ee/en/products/detail/littelfuse-inc/1206L025YR/455696) | F2110CT-ND | Littelfuse | 1206L025YR |
+| J1 | Barrel jack | Barrel jack switch | THT | 1 | $0.52 | $0.52 | [Link](https://www.digikey.ee/en/products/detail/same-sky-formerly-cui-devices/PJ-002A/96962) | CP-002A-ND | Same Sky | PJ-002A |
+| J2 | Screw terminal | Screw terminal 01x02 | THT | 1 | $0.74 | $0.74 | [Link](https://www.digikey.ee/en/products/detail/te-connectivity-amp-connectors/282837-2/2187973) | A113320-ND | TE Connectivity plc | 282837-2 |
+| SW1 | Push-button | Tact switch | THT | 1 | $0.24 | $0.24 | [Link](https://www.digikey.ee/en/products/detail/c-k/Y97HT21A1EAFP/1146755) | CKN9098-ND | C&K Switches | Y97HT21A1EAFP |
+| SW2 | Push-button | Slide switch | SMD | 1 | $1.05 | $1.05 | [Link](https://www.digikey.at/en/products/detail/nidec-components-corporation/CAS-120A1/5725943) | CAS-120A1-ND | Nidec Components | CAS-120A1 |
+| A1 | Arduino | Arduino Nano | - | 1 | $13.30 | $13.30 | [Link](https://www.digikey.ee/en/products/detail/arduino/ABX00143/26766495) | 1050-ABX00143-ND | Arduino | ABX00143 |
+| C1/C3/C4 | 1 μF | Capacitor | SMD 0805 | 3 | $0.08 | $0.24 | [Link](https://www.digikey.ee/en/products/detail/samsung-electro-mechanics/CL21B105KAFNNNE/3886724) | 1276-1066-1-ND | Samsung Electro-Mechanics | CL21B105KAFNNNE |
+| C2 | 0.1 μF | Capacitor | SMD 0805 | 1 | $0.08 | $0.08 | [Link](https://www.digikey.ee/en/products/detail/samsung-electro-mechanics/CL21B104KBCNNNC/3886661) | 1276-1003-1-ND | Samsung Electro-Mechanics | CL21B104KBCNNNC |
+| R1/R2/R3/R4/R7 | 10 kΩ | Resistor | SMD 0805 | 5 | $0.10 | $0.50 | [Link](https://www.digikey.ee/en/products/detail/stackpole-electronics-inc/RMCF0805FT10K0/1760676) | RMCF0805FT10K0CT-ND | Stackpole Electronics | RMCF0805FT10K0 |
+| R5/R6 | 4.7 kΩ | Resistor | SMD 0805 | 2 | $0.10 | $0.20 | [Link](https://www.digikey.ee/en/products/detail/vishay-dale/CRCW08054K70FKEAC/7928553) | 541-4131-1-ND | Vishay Dale | CRCW08054K70FKEAC |
+| R8 | 33 kΩ | Resistor | SMD 0805 | 1 | $0.10 | $0.10 | [Link](https://www.digikey.ee/en/products/detail/yageo/RC0805FR-0733KL/727863) | 311-33.0KCRCT-ND | Yageo | RC0805FR-0733KL |
+| R9 | 1 kΩ | Resistor | SMD 0805 | 1 | $0.10 | $0.10 | [Link](https://www.digikey.ee/en/products/detail/yageo/RT0805BRD071KL/5139268) | YAG1820CT-ND | Yageo | RT0805BRD071KL |
+
+**Total parts:** 27  
+**Total cost:** $19.48
 
 ---
 
