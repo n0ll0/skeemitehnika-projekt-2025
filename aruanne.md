@@ -84,6 +84,8 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
 **Motivatsioon:** Katsetada loogikaväravate realiseerimist diskreetsete komponentidega ja kuidas Arduino sisendeid saaks laiendada ilma täiendavate mikrokontrolleriteta.
 
+
+
 ### 3.3 Uuritud lahendused
 
 #### 3.3.1 Analoogprojekt — lahenduste võrdlus
@@ -241,9 +243,9 @@ Minimaalne DNF: $\overline{A} + B$.
 
 **Skeemi alus ja komponentide valik** 
 
-**Dioodi-lahenduses** pärast inverteerimist jõuab $\overline{A}$ koos $B$-ga diood-VÕI sõlme. Tüüpilised väärtused: `Rpull-up ≈ 1kΩ` (kui ainult lüliti on aktiivne, tagab ~3,9 V väljundi; 10kΩ puhul langeks ~2.1 V peale), `Rbase ≈ 47kΩ…100kΩ` (piirab baasi voolu, hoiab transistori küllastuses), dioodid 1N4148. Skeem on mõeldud kiireks kahe signaali liitmiseks minimaalsete komponentidega, näiteks Arduino Nano ise kasutab USB ja 5 V regulaatori ühendamiseks SS1P3L dioodi. Selline lahendus ei sobi kui täpsus väljundi stabiilsus on oluline. Selle skeemi kasvukiirus sõltub transistori sisemisest kondensaatorist, mis suure baasitakistiga jõuab lülitamiskiirus 10% - 90% mikrosekundite suurusjärku. TTL, võrdluseks, integralskeemid pakkuvad paremat lülitamiskiirust (~10 ns) ja suuremat fan-out’i, kuid antud ülesandes oli eesmärgiks luua skeemi käepärastest komponentidest ja võimalikult lihtsa skeemi. TTL loogika sisaldab mitme emitteriga sisend-transistori ja väljundis "totem-pole", mis suurendab transistorite arvu.
+**Dioodi-lahenduses** pärast inverteerimist jõuab $\overline{A}$ koos $B$-ga diood-VÕI sõlme. Tüüpilised väärtused: $R_{pull-up} ≈ 1 kΩ$ (kui ainult lüliti on aktiivne, tagab ~3,9 V väljundi; 10 kΩ puhul langeks ~2.1 V peale), $R_{baas}$ ≈ $4,7$ kΩ … $100$ kΩ (piirab baasi voolu, hoiab transistori küllastuses), dioodid 1N4148. Skeem on mõeldud kiireks kahe signaali liitmiseks minimaalsete komponentidega, näiteks Arduino Nano ise kasutab USB ja 5 V regulaatori ühendamiseks SS1P3L dioodi. Selline lahendus ei sobi kui täpsus väljundi stabiilsus on oluline. Selle skeemi kasvukiirus sõltub transistori sisemisest kondensaatorist, mis suure baasitakistiga jõuab lülitamiskiirus 10% - 90% mikrosekundite suurusjärku. TTL, võrdluseks, integralskeemid pakkuvad paremat lülitamiskiirust (~10 ns) ja suuremat fan-out’i, kuid antud ülesandes oli eesmärgiks luua skeemi käepärastest komponentidest ja võimalikult lihtsa skeemi. TTL loogika sisaldab mitme emitteriga sisend-transistori ja väljundis "totem-pole", mis suurendab transistorite arvu.
 
-**Transistor-NOR lahenduses** kasutatakse kahte NPN transistori (2N3904) paralleelühenduses, mille kollektorid on ühendatud ühise koormustakisti sõlme `Rcollector ≈ 1kΩ…4.7kΩ`. Tüüpilised väärtused: `Rbase ≈ 10kΩ` (tagab piisava baasi voolu sisendist), `Rcollector ≈ 4.7kΩ` (määrab madaltaseme pinge ja voolu). Skeem realiseerib otse NOR-funktsiooni: kui vähemalt üks sisend on kõrgtasemel (ületab baas-emitteri pingelangu), on vastav transistor küllastuses ja tõmbab väljundi maasse ($V_{OL}\approx0.2\,\mathrm{V}$). Ainult kui mõlemad sisendid on madaltasemel, jääb väljund kõrgele ($V_{OH}\approx4.8\,\mathrm{V}$). RTL NOR-i eeliseks on väga lihtne ülesehitus ja poole kiirem lülitamiskiirus (~500 ns). RTL NOR sobib hästi kiire skeemi koostamiseks ja proovimiseks makettplaadis, kus ei ole vaja suurt sisendite arvu ega kiireid lülitumisi.
+**Transistor-NOR lahenduses** kasutatakse kahte NPN transistori (2N3904) paralleelühenduses, mille kollektorid on ühendatud ühise koormustakisti sõlme $R_{kollektor}$ ≈ 1 kΩ … 4.7 kΩ. Tüüpilised väärtused: $R_{base}$ ≈ 10 kΩ tagab piisava baasi voolu sisendist, $R_{collector}$ ≈ 4.7 kΩ voolu piiramiseks. Skeem realiseerib otse NOR-funktsiooni: kui vähemalt üks sisend on kõrgtasemel (ületab baas-emitteri pingelangu), on vastav transistor küllastuses ja tõmbab väljundi maasse ($V_{OL}\approx0.2\,\mathrm{V}$). Ainult kui mõlemad sisendid on madaltasemel, jääb väljund kõrgele ($V_{OH}\approx4.8\,\mathrm{V}$). RTL NOR-i eeliseks on väga lihtne ülesehitus ja poole kiirem lülitamiskiirus (~500 ns). RTL NOR sobib hästi kiire skeemi koostamiseks ja proovimiseks makettplaadis, kus ei ole vaja suurt sisendite arvu ega kiireid lülitumisi.
 
 **Simulatsiooni seadistus (LTspice).**
 - Toide 5 V, mudelid: 2N3904, 1N4148.
@@ -337,7 +339,7 @@ millestki tingitud täpsusprobleemile. Madaltasemel on reaalsed väärtused 0,02
 
 ### 6.2 Digiprojekt
 
-Testitud dioodidega OR-värav + NPN inverter kombinatsiooni. Väljundpinged langevad kokku simulatsiooniga ~5% täpsusega.
+Makettplaadil oli testitud transistor- ja dioodlahendust. Saadud tulemused olid mõõdetud multimeetri ja Arduino analoog sisendiga. Väljundpinged langevad kokku simulatsiooniga ~5% täpsusega.
 
 ---
 
@@ -354,6 +356,7 @@ LM324 op-amp ei ole rail-to-rail väljundiga, st väljund ei ulatu positiivse to
 KiCadi lõppversioonis kasutati kaitseks BOM-is toodud komponente:
 1. **PTC kaitse (SMDH1206B005TF):** lühise/ülevoolu kaitse
 2. **TVS diood (SMAJ13A):** impulss- ja ESD-kaitse
+3. **P-MOSFET (AO3401A):** pöördpolaarsuse kaitse
 
 ### 7.3 Efektiivsus
 
@@ -365,7 +368,13 @@ KiCadi lõppversioonis kasutati kaitseks BOM-is toodud komponente:
 
 ## 8. KiCad elektriskeem
 
+LTspice'i simulatsioon keskendus ainult põhifunktsionaalsusele ideaalsete allikate ja välistele mõjudele; KiCadi lõppskeem lisab kaitsed (9→5V regulaator koos PTC/TVS/pöördpolaarsuskaitsega), pistikud ning silumiskondensaatorid.
+
 ### 8.1 Skeemi kirjeldus
+
+Mõlema projekti elektriskeemide kasutatud komponendid ja lühikirjeldus. Digiprojekti lõplik skeem on npn transistoritega VÕI-EI.
+
+#### 8.1.1 Analoogprojekt
 
 Elektriskeem koostati KiCadis, sisaldab:
 - LM324 op-amp (4 kanalit)
@@ -375,19 +384,31 @@ Elektriskeem koostati KiCadis, sisaldab:
 - L7805 pingeregulaator koos kaitseskeemidega
 - Barrel jack sisendpistik
 
+#### 8.1.2 Digiprojekt
+Elektriskeem koostati KiCadis, sisaldab:
+- 2N3904 NPN transistorid (3 tk)
+- Takistid baasi ja kollektorite jaoks
+- Barrel jack sisendpistik ja kahene kruvi pistik
+- Toite kaitseskeem (PTC, TVS, P-MOSFET) regulaatorita otse Arduino $V_{in}$ viiku
+- VÕI-EI skeemi toide Arduino 5 V viigust
+
 ### 8.2 Erinevused simulatsioonist
 
-| Aspekt | LTspice | KiCad |
-|--------|---------|-------|
-| Toide | Ideaalne 5V | 9V→5V regulaator |
-| Kaitsed | Puuduvad | PTC, TVS |
-| Pistikud | Puuduvad | Barrel jack, pin headers |
+| Aspekt | LTspice (Analoog) | KiCad (Analoog) | LTspice (Digiprojekt) | KiCad (Digiprojekt) |
+|--------|--------------------|----------------|----------------------|----------------------|
+| Toide | Ideaalne 5V | 9V→5V regulaator | Ideaalne 5V | 9V sisend → Arduino $V_{in}$ (loogika 5V Arduinolt) |
+| Kaitsed | Puuduvad | PTC, TVS, pöördpolaarsuskaitse | Puuduvad | PTC, TVS, P-MOSFET (regulaatorita) |
+| Pistikud | Puuduvad | Barrel jack, pin headers | Puuduvad | Barrel jack, kruvi pistik, pin headers |
 
 ### 8.3 Komponentide valiku kriteeriumid
 
-- **Saadavus:** eelistatud kohvris olevad komponendid
-- **Jootmise võimekus:** THT komponendid, v.a. mõned SMD
-- **Hind:** minimaalne, kasutades olemasolevaid
+- **Saadavus:** eelistatud kohvris olevad komponendid või laialdaselt saadavad standardkomponendid ("jellybean parts")
+- **Jootmise võimekus:** THT komponendid käsitsi jootmiseks, vähemalt 0803 suurusega SMD
+- **Hind:** minimaalne, kasutades olemasolevaid ja laialdaselt levinud seeriaid
+- **Standardseeritud valik:**
+  - Transistorid: 2N3904/2N3906 (NPN/PNP bipolaartransistorid), BC547/BC557, 2N2222 – odavad ja laialdaselt saadaval
+  - Op-ampid: LM324 (quad), LM358 (dual), TL072 (low-noise JFET)
+  - Regulaatorid: 78xx seeria lineaarregulaatorid
 
 ---
 
@@ -408,7 +429,7 @@ Elektriskeem koostati KiCadis, sisaldab:
 ### 9.3 Enim aega võttis
 
 - Komponentide optimaalne paigutus kompaktsuse saavutamiseks
-- Radade ruutimine ilma läbiviiukideta (single-layer)
+- Radade ruutimine ühekilhisel plaadil ilma ristumiste ja läbiviikudeta
 
 ### 9.4 Tootmine
 
@@ -498,32 +519,6 @@ PCBWay pakub ka **PCBA (PCB Assembly)** teenust, kus tehases joodetatakse SMD ko
 
 Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 
-| Nimetus PCB-l | Kogus | Väärtus | Footprint | Hind (€) |
-|---------------|-------|---------|-----------|----------|
-| A1 | 1 | Arduino Nano Socket | THT pistikupesa 2×15 pin | 0.50 |
-| - | 1 | Arduino Nano (ATmega328P) | – | ~5€ (kloon) / ~27€ (originaal) |
-| J1 | 1 | Barrel Jack | THT | 0.30 |
-| J2 | 1 | Screw Terminal 2-pin | THT | 0.20 |
-| F1 | 1 | Polyfuse PTC | SMD/THT | 0.10 |
-| Q1, Q2 | 2 | 2N3904 NPN | TO-92 THT | 0.10 |
-| Q3 | 1 | FDN340P P-MOSFET | SOT-23 SMD | 0.15 |
-| R2, R3, R4 | 3 | 10kΩ | 0805 SMD | 0.06 |
-| R5, R6 | 2 | 4.7kΩ | 0805 SMD | 0.04 |
-| R1 | 1 | 1kΩ | 0805 SMD | 0.02 |
-| R7 | 1 | 33kΩ | 0805 SMD | 0.02 |
-| C2 | 1 | 100nF | 0805 SMD | 0.02 |
-| C1, C4 | 2 | 1µF | 0805 SMD | 0.10 |
-| D1 | 1 | TVS (ESD/Zener) | SMD | 0.10 |
-| D3 | 1 | LED indikaator | THT 5mm | 0.05 |
-| SW1 | 1 | Nidec CAS-120A lüliti | SMD | 1.26 |
-| SW2 | 1 | SPST lüliti (mehaaniline) | THT | 0.20 |
-| **Komponendid (ilma Arduinota)** | | | | **~3.22** |
-| **Komponendid + Arduino (kloon)** | | | | **~8.22** |
-| **Komponendid + Arduino (originaal)** | | | | **~30.22** |
-
-#### 10.2.1 Digiprojekti PCB tootmine
-
-## Single PCB Parts
 
 | Reference | Part/Value | Description | Type | Quantity | Unit Cost | Cost | Link | DigiKey Part Number | Manufacturer | Manufacturer Product Number |
 | --------- | ---------- | ----------- | ---- | -------- | --------- | ---- | ---- | ------------------- | ------------ | --------------------------- |
@@ -548,6 +543,16 @@ Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 
 **Total parts:** 27  
 **Total cost:** $19.48
+
+
+#### 10.2.1 Digiprojekti PCB tootmine
+
+## Single PCB Parts
+
+| Teenus | Kirjeldus | Hind (€) |
+|--------|-----------|----------|
+| PCB tootmine (PCBWay) | 2-kihiline, 5 tk | ~5.00 |
+| Transport | Eestisse | ~8-15 |
 
 ---
 
@@ -679,6 +684,17 @@ Peamised õppetunnid:
 1. Simulatsioon on hädavajalik enne makettplaadile minekut
 2. Komponentide piiranguid tuleb arvestada juba projekti alguses
 3. Dokumentatsioon ja versioonihaldus (Git) säästab aega
+
+### 13.1 Võimalikud edasiarendused
+
+Võimalikud täiustused, mis muudaksid lahenduse huvitavamaks või töökindlamaks:
+
+**Digiprojekt:**
+- Sisendite Schmitt-puhverdamine mürakindluse parandamiseks ja järsema lülitumise saavutamiseks
+- Oleku muutuse tuvastamine, mis tekitab impulsi sisendi muutumisel, mis võimaldaks nii "active high" kui "active low" signaalide ühendamist
+- Lukustusahel seisundi salvestamiseks koos eraldi reset-viiguga, saaks kasutada mikrokontrolleri ärkamiseks, kui see toetab riistvaralist _interrupti_
+- Sisendite laiendamine shift-registriga või I/O laiendajaga (näiteks MCP23018, millel on 16 täiendavat sisendit/väljundit I²C kaudu)
+
 
 ---
 
