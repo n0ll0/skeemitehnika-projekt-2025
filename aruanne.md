@@ -56,6 +56,17 @@ Komponente testiti järgmiselt:
 - **Transistorid:** kontrolliti dioodirežiimis multimeetriga BE ja BC siirdeid
 - **Op-ampid:** testiti voltage follower konfiguratsiooniga
 - **Fotodiood BPW34:** testiti pöördpingestatud režiimis valgustundlikkust
+- **Surunupp:** multimeetriga testitud juhitavuse režiimis
+- **SN74LS02N NOR** ja **SN74LS00N NAND:** testitud loogikafunktsiooni järgi. Loogikafunktsiooni väljundi jälgimiseks kasutati LED-i ja toiteks Arduinot.
+- **1N4148 diood:** multimeetriga mõõdetud dioodrežiimis anoodi ja katoodi pealt
+
+1N4148 diood – multimeetriga mõõdetud dioodrežiimis anoodi ja katoodi pealt
+2N3904 NPN transistor – multimeetriga mõõdetud dioodrežiimis baas-emitter ja baas-kollektor siirdeid.
+Takistid – multimeetriga mõõdetud takistirežiimis.
+Surunupp – multimeetriga testitud juhitavuse režiimis.
+SN74LS02N NOR ja SN74LS00N NAND loogikaskeemid – testitud loogikafunktsiooni järgi. Loogikafunktsiooni väljundi jälgimiseks kasutati LED-i ja toiteks Arduinot.
+
+
 
 ---
 
@@ -218,33 +229,84 @@ Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
 
 ### 5.2 Digiprojekt - LTspice simulatsioon
 
-**Simulatsiooni tulemused vs tegelikkus:**
+**Eesmärk ja loogika.** Digisisendi laienduse eesmärk on realiseerida loogikafunktsioon $\overline{A} + B$, kus `A` on mehaaniline lüliti (Active Low) ning `B` on tavaline digitaalne signaal (Active High). Praktikas võrreldi kahte varianti: diood-VÕI, kus `A` inverteeritakse enne OR-sõlme, ja RTL VÕI-EI, maketil testiti mõlemad.
 
-| Allikas | inv. SW (V) | Digital (V) | OUT (V) |
-|---------|-------------|-------------|---------|
-| LTSpice | 0.68 | 0 | 0.26 |
-| LTSpice | 0.68 | 5 | 4.45 |
-| LTSpice | 4.77 | 0 | 4.22 |
-| LTSpice | 4.81 | 5 | 4.45 |
-| Reaalne | 0.92 | -0.2 | 0.43 |
-| Reaalne | 0.92 | 4.8 | 4.03 |
-| Reaalne | 4.77 | -0.01 | 4.19 |
-| Reaalne | 4.80 | 4.8 | 4.26 |
+**Skeemi alus ja komponentide valik** 
 
-**Minimaalne DNF:** A' + B
+**Dioodi-lahenduses** pärast inverteerimist jõuab $\overline{A}$ koos $B$-ga diood-VÕI sõlme. Tüüpilised väärtused: `Rpull-up ≈ 1kΩ` (kui ainult lüliti on aktiivne, tagab ~3,9 V väljundi; 10kΩ puhul langeks ~2.1 V peale), `Rbase ≈ 47kΩ…100kΩ` (piirab baasi voolu, hoiab transistori küllastuses), dioodid 1N4148. Skeem on mõeldud kiireks kahe signaali liitmiseks minimaalsete komponentidega, näiteks Arduino Nano ise kasutab USB ja 5 V regulaatori ühendamiseks SS1P3L dioodi. Selline lahendus ei sobi kui täpsus väljundi stabiilsus on oluline. Selle skeemi kasvukiirus sõltub transistori sisemisest kondensaatorist, mis suure baasitakistiga jõuab lülitamiskiirus 10% - 90% mikrosekundite suurusjärku. TTL, võrdluseks, integralskeemid pakkuvad paremat lülitamiskiirust (~10 ns) ja suuremat fan-out’i, kuid antud ülesandes oli eesmärgiks luua skeemi käepärastest komponentidest ja võimalikult lihtsa skeemi. TTL loogika sisaldab mitme emitteriga sisend-transistori ja väljundis "totem-pole", mis suurendab transistorite arvu.
 
-**Simulatsiooni tulemused vs tegelikkus:**
+**Transistor-NOR lahenduses** kasutatakse kahte NPN transistori (2N3904) paralleelühenduses, mille kollektorid on ühendatud ühise koormustakisti sõlme `Rcollector ≈ 1kΩ…4.7kΩ`. Tüüpilised väärtused: `Rbase ≈ 10kΩ` (tagab piisava baasi voolu sisendist), `Rcollector ≈ 4.7kΩ` (määrab madaltaseme pinge ja voolu). Skeem realiseerib otse NOR-funktsiooni: kui vähemalt üks sisend on kõrgtasemel (ületab baas-emitteri pingelangu), on vastav transistor küllastuses ja tõmbab väljundi maasse ($V_{OL}\approx0.2\,\mathrm{V}$). Ainult kui mõlemad sisendid on madaltasemel, jääb väljund kõrgele ($V_{OH}\approx4.8\,\mathrm{V}$). RTL NOR-i eeliseks on väga lihtne ülesehitus ja poole kiirem lülitamiskiirus (~500 ns). RTL NOR sobib hästi kiire skeemi koostamiseks ja proovimiseks makettplaadis, kus ei ole vaja suurt sisendite arvu ega kiireid lülitumisi.
 
-| Allikas | inv. SW (V) | Digital (V) | OUT (V) |
-|---------|-------------|-------------|---------|
-| LTSpice | 0.68 | 0 | 0.26 |
-| LTSpice | 0.68 | 5 | 4.45 |
-| LTSpice | 4.77 | 0 | 4.22 |
-| LTSpice | 4.81 | 5 | 4.45 |
-| Reaalne | 0.92 | -0.2 | 0.43 |
-| Reaalne | 0.92 | 4.8 | 4.03 |
-| Reaalne | 4.77 | -0.01 | 4.19 |
-| Reaalne | 4.80 | 4.8 | 4.26 |
+**Simulatsiooni seadistus (LTspice).**
+- Toide 5 V, mudelid: 2N3904, 1N4148.
+- Sisendid: PULSE-allikad erinevate perioodidega 
+  (`PULSE(5 0 0 1u 1u 5m 15m)` ja `PULSE(0 5 0 1u 1u 10m 20m)`), 
+  et katta kõik neli sisendkombinatsiooni.
+- Väljund ilma koormuseta.
+
+**Arvutuskäik ja eeldused.** 
+Baasitakistid $R_B = 10\,\mathrm{k}\Omega$, inverteri ja väljundi 
+pull-up $R_C = 4.7\,\mathrm{k}\Omega$. 
+BJT tavanäitajad: $V_{BE} \approx 0.7\,\mathrm{V}$, 
+$V_{CE(sat)} \approx 0.2\text{–}0.3\,\mathrm{V}$ (andmelehest) küllastuses.
+
+Inverteri kollektori vool (küllastuses): 
+$I_C \approx \frac{5-0.2}{4.7\,\mathrm{k}} \approx 1.0\,\mathrm{mA}$.
+
+Küllastuse tagamiseks on vaja 
+$I_B \gtrsim I_C/\beta_{sat} \approx 1.0\,\mathrm{mA}/10 \approx 0.1\,\mathrm{mA}$ 
+(kus $\beta_{sat} \approx 10$).
+
+Tegelik baasi vool $R_B = 10\,\mathrm{k}\Omega$ korral: 
+$I_B \approx \frac{5-0.7}{10\,\mathrm{k}} \approx 0.43\,\mathrm{mA}$, 
+mis **ületab** vajaliku miinimumi ~4x → tagab küllastuse ja 
+kiire lülitumise.
+
+Väljundtasemed: 
+- $V_{OL} \approx 0.2\,\mathrm{V}$ (vähemalt üks transistor küllastuses). Andmelehe kohaselt on $V_{CE(sat)}$ tavaliselt 0.2 V juures $I_C = 1\,\mathrm{mA}$ ja $I_B = 0.1\,\mathrm{mA}$, simulatsioonis ja päris elus ei ületanud isegi 50 mV'ti.
+- $V_{OH} \approx 5.0\,\mathrm{V}$ (mõlemad transistorid väljas, pull-up 
+  läbi $R_C$)
+
+Need ületavad Arduino Nano (ATmega328P) loogikatasemed 
+($V_{IL} < 0.3V_{CC} = 1.5\,\mathrm{V}$, 
+$V_{IH} > 0.6V_{CC} = 3.0\,\mathrm{V}$) korraliku varuga.
+
+**Tulemused ja võrdlus reaalsega.**
+
+Mõõtetulemused reaalse dioodi skeemiga. Lisaks mõõtsime väljundit ka Arduino analoog sisendiga, mis on resolutsiooniga 0-1023, seega 5 V / 1024 = 0,00488 V sammuga.
+
+| Source      | inv. SW (V) | Digital (V) | OUT (Arduino) | OUT (Multimeter) | OUT (V) |
+|------------|-------------|-------------|---------------|----------------|---------|
+| Real       | 0,92       | -0,2        | 0,64          | 0,43           |         |
+| Real       | 0,92       | 4,8         | 4,4           | 4,03           |         |
+| Real       | 4,77       | -0,01       | 4,36          | 4,19           |         |
+| Real       | 4,80       | 4,8         | 4,4           | 4,26           |         |
+| LTSpice    | 0,677      | 0           |               |                | 0,259   |
+| LTSpice    | 0,68       | 5           |               |                | 4,45    |
+| LTSpice    | 4,77       | 0           |               |                | 4,22    |
+| LTSpice    | 4,81       | 5           |               |                | 4,45    |
+
+
+Mõõtetulemused NPN VÕI-EI skeemiga.
+
+| inverteeritud SW (V) | Arduino digiväljund (V) | Allikas | Arduino analoogsisend (V) | Multimeeter (V) | LTSpice (V) |
+|-------|-------|---------|-----------|-----------|-----------|
+| 0.05  | 0     | Real    | 5.00      | 4.77      | 5.00      |
+| 0.05  | 5     | Real    | 0.03      | 0.02      | 0.00      |
+| 3.49  | 0     | Real    | 0.03      | 0.03      | 0.00      |
+| 3.49  | 5     | Real    | 0.02      | 0.02      | 0.00      |
+| 0.05  | 0     | LTSpice | 5.00      | 5.00      | 5.00      |
+| 0.05  | 5     | LTSpice | 0.00      | 0.00      | 0.00      |
+| 3.49  | 0     | LTSpice | 0.00      | 0.00      | 0.00      |
+| 3.49  | 5     | LTSpice | 0.00      | 0.00      | 0.00      |
+
+Simulatsiooni ja reaalsete mõõtmiste võrdlus näitab head ühtivust. Multimeetri pingemõõtmistes esines ~0,23 V süstemaatiline hälve võrreldes Arduino analoogsisendi mõõtmistega. Sama hälve ilmnes ka dioodi skeemi mõõtmisel, mis viitab multimeetri heale kordustäpsusele, kuid 
+millestki tingitud täpsusprobleemile. Madaltasemel on reaalsed väärtused 0,02–0,03 V, mis vastavad transistori küllastuspiirkonnale. Kõikidel juhtudel jäävad tasemed Arduino Nano loogikalävede suhtes ohutusse vahemikku.
+
+**RTL vs TTL:** TTL (74LS02) pakub väiksemat sisetakistust, kiiremat lülitumist (~10 ns vs ~1 µs) ja paremat fan-out'i (~10 vs ~5). Antud ülesande korral on RTL lahendus piisav ning praktilisem, kuna diskreetsed komponendid (transistorid, takistid) on hobikorras saadavamad kui spetsiifilised loogika integralskeemid. Kui nõuded kasvavad (pikad juhtmed, tugev EMI, kiire lülitumine, suurem koormus), oleks mõistlikum liikuda TTL/CMOS integralskeemide peale või lisada Schmitt-triggeri puhver signaali järsustamiseks ja müravastupidavuse parandamiseks.
+
+
+**Järeldus.** Simulatsioon kinnitab valitud RTL VÕI-EI lahenduse korrektsust: loogikatasemed kattuvad, väljundtasemed vastavad Arduino sisendnõuetele ning edukalt loevad loogilist taset.
 
 ---
 
@@ -559,6 +621,27 @@ Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 - Hinnata erinevate komponentide praktilist sobivust (SMD vs THT) vastavalt projekti keerukusele ja töömahtudele
 - Planeerida aega realistlikumalt ning kaasata juhendaja tagasisidet enne suuremate disainimuudatuste tegemist
 
+### 12.4 Jarek
+
+**Tehtud tööd:**
+- Projekti lahenduskäikude uurimine ja vajalike komponentide kontrollimine
+- Makettplaadil transistor- ja dioodlahenduse koostamine ning tulemuste mõõtmine multimeetri ja Arduino analoog sisendiga
+- KiCad’is trükkplaadi disainimine
+- BoM koostamine vastavalt KiCad skeemile
+
+**Mis läks hästi:**
+- Makettplaadil mõõdetud tulemused langesid kokku simulatsiooniga
+- Projekti käigus sain uusi kogemusi ja teadmisi
+
+**Mis läks halvasti:**
+- Algselt ei olnud trükkplaadil rajade ruutimine korrektne ning rajad oleks võinud laiemad olla
+- Oleks pidanud KiCad skeemi koostamisse rohkem panustama
+
+**Mida nüüd oskan paremini:**
+- Enne skeemi kokkupanemist makettplaadile oli kasulik kasutada Tinkercad’i simulaatorit, et kontrollida, kas väljundid on ootuspärased
+- Parem arusaamine trükkplaadi koostamisest: komponentide paigutamisest, rajade ruutimisest ja maakihi kasutamisest
+
+
 ---
 
 ## 13. Kokkuvõte
@@ -582,6 +665,7 @@ Peamised õppetunnid:
 6. 9V to 5V converter: https://somanytech.com/9v-to-5v-converter-circuit/
 7. [rtl-source]: https://eee.poriyaan.in/topic/resistor---transistor-logic--rtl--11599/
 8. [ttl-source]: https://eee.poriyaan.in/topic/transistor-transistor-logic--ttl--11601/
+9. reverse-leakage-current https://en.wikipedia.org/wiki/Reverse_leakage_current
 
 ---
 
