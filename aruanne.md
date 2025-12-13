@@ -1,8 +1,8 @@
 # IEE1030 Skeemitehnika Lõpparuanne
 
 **Projektid:**
+- Valgustatuse hindamine fotodioodiga
 - Arduino Nano digisisendi laiendus
-- Valgustugevuse mõõtmine fotodioodiga
 
 **Autorid:** Uko, Jüri
 
@@ -14,7 +14,7 @@
 
 ## 1. Sissejuhatus
 
-Käesolev aruanne kirjeldab kahe skeemitehnika projekti läbiviimist IEE1030 aine raames. Esimene projekt keskendub Arduino Nano digitaalse sisendi laiendamisele analoogkomponentidega, teine projekt valgustugevuse mõõtmisele fotodioodiga vahemikus 300-500 luksi.
+Käesolev aruanne kirjeldab kahe skeemitehnika projekti läbiviimist IEE1030 aine raames. Esimene projekt keskendub valgustatuse hindamisele fotodioodiga vahemikus 300–500 lx (ainult analoogkomponendid), teine projekt Arduino Nano digisisendi laiendamisele diskreetsete komponentidega.
 
 ---
 
@@ -54,7 +54,7 @@ Komponente testiti järgmiselt:
 - **Takistid:** mõõdetud multimeetriga, võrreldi nimiväärtusega (±1% tolerants)
 - **LED-id:** testitud 5V toitel läbi 220Ω või 1kΩ takisti
 - **Transistorid:** kontrolliti dioodirežiimis multimeetriga BE ja BC siirdeid
-- **Op-ampid:** testiti voltage follower konfiguratsiooniga
+- **Op-ampid:** testiti pingejälgija (voltage follower) konfiguratsiooniga
 - **Fotodiood BPW34:** testiti pöördpingestatud režiimis valgustundlikkust
 - **Surunupp:** multimeetriga testitud juhitavuse režiimis
 - **SN74LS02N NOR** ja **SN74LS00N NAND:** testitud loogikafunktsiooni järgi. Loogikafunktsiooni väljundi jälgimiseks kasutati LED-i ja toiteks Arduinot.
@@ -65,7 +65,16 @@ Komponente testiti järgmiselt:
 
 ## 3. Projekti valik ja motivatsioon
 
-### 3.1 Projekt 1: Arduino Nano digisisendi laiendus
+### 3.1 Projekt 1: Valgustatuse hindamine fotodioodiga
+
+**Püstitus:** Koostada skeem, mis hindab valgustatust vahemikus **300–500 lx**, kasutades kolme LED-i:
+- Punane: valgustatus alla 300 lx
+- Kollane: valgustatus 300–500 lx
+- Roheline: valgustatus üle 500 lx
+
+**Motivatsioon:** Lahendada valgustingimuste hindamise toode, kasutades ainult analoogkomponente (Arduino välistatud).
+
+### 3.2 Projekt 2: Arduino Nano digisisendi laiendus
 
 **Püstitus:** Luua skeem, mille sisendiks on 2 digitaalset signaali:
 1. Mehaaniline kontakt (Active Low)
@@ -73,20 +82,11 @@ Komponente testiti järgmiselt:
 
 Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
 
-**Motivatsioon:** Soov õppida loogikaväravate realiseerimist diskreetsete komponentidega ning mõista, kuidas Arduino sisendeid saab laiendada ilma täiendavate mikrokontrolleriteta.
-
-### 3.2 Projekt 2: Valgustugevuse mõõtmine fotodioodiga
-
-**Püstitus:** Koostada skeem, mis hindab valgustatust vahemikus 300-500 luksi, kasutades kolme LED-i:
-- Punane: valgustatus alla 300 lx
-- Kollane: valgustatus 300-500 lx
-- Roheline: valgustatus üle 500 lx
-
-**Motivatsioon:** Praktiline rakendus valgustingimuste hindamiseks, kasutades ainult analoogkomponente (Arduino välistatud).
+**Motivatsioon:** Katsetada loogikaväravate realiseerimist diskreetsete komponentidega ja kuidas Arduino sisendeid saaks laiendada ilma täiendavate mikrokontrolleriteta.
 
 ### 3.3 Uuritud lahendused
 
-#### Analoogprojekt - kolm lahendust:
+#### 3.3.1 Analoogprojekt — lahenduste võrdlus
 
 1. **MCP6002 kahe op-ampiga:**
    - Üks op-amp voolu-pinge muunduriks (transimpedantsivõimendi)
@@ -94,14 +94,14 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
    - *Probleem:* ainult 2 op-ampi, vaja vähemalt 2 komparaatorit
 
 2. **LM324 nelja op-ampiga:**
-   - Üks transimpedantsivõimendiks
+   - Üks transimpedantsvõimendiks
    - Kaks komparaatoriks (läved 300 lx ja 500 lx)
    - Üks LED-draiver või lisavõimendus
    - *Valitud lahendus*
 
 3. **Takistiredel + komparaatorid:**
    - Pingejagurist referentspinged
-   - Voltage-to-LED array stiilis lahendus
+   - “Voltage-to-LED array” stiilis lahendus
    - *Kombineeriti lahendusega 2*
 
 #### Digiprojekt - kolm lahendust:
@@ -141,7 +141,7 @@ Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku 
 
 ## 4. Plokkdiagrammid
 
-### 4.1 Analoogprojekt: Valgustugevuse mõõtja
+### 4.1 Analoogprojekt: valgustatuse indikaator
 
 ```
 ┌─────────────┐    ┌────────────────┐    ┌─────────────────┐    ┌──────────┐
@@ -186,14 +186,16 @@ Lahenduste valikul toetuti lihtsamatele lahendustele, mida saaks kiiresti kokku 
 **Skeemi kirjeldus:**
 
 Skeem koosneb kolmest põhiosast:
-1. **Transimpedantsivõimendi:** BPW34 fotodiood pöördpingestatud režiimis, LM324 op-amp tagasiside takistiga 500kΩ
+1. **Transimpedantsvõimendi:** BPW34 fotodiood pöördpingestatud režiimis, LM324 op-amp tagasiside takistiga 500kΩ
 2. **Pingeredel:** Referentspingete genereerimine V1=3.25V (500 lx), V2=1.7V (300 lx), V3≈0.1V
 3. **Komparaatorid:** Kaks LM324 op-ampi komparaatoritena
+
+LED-olekute moodustamiseks tekivad kaks läve (300 lx ja 500 lx), mis jagavad mõõtevahemiku kolmeks tsooniks. Kollase tsooni (300–500 lx) realiseerimiseks on loogiliselt vajalik akna-komparaatori tingimus $V_{out} > V_{300}$ ja $V_{out} < V_{500}$; praktikas lahendati LED-indikatsioon vastavalt prototüübi lihtsustatud juhtimisele, lähtudes komparaatorite väljunditest.
 
 **Takistiredeli arvutuskäik:**
 
 Mõõdetud seos (500kΩ tagasisidega):
-| Lux | V(out) |
+| lx | V(out) |
 |-----|--------|
 | 300 | 1.70 V |
 | 500 | 3.25 V |
@@ -211,18 +213,31 @@ $$
 
 **Optimeeritud diskreetsed väärtused (minimaalne komponentide arv):**
 
-Kasutades skripti `ladder-calc.js`:
+Diskreetsete väärtuste leidmiseks kasutati skripti `ladder-calc.js`, mis otsib kohvri komponentidest sihtpingetele lähendusi. Näidiskombinatsioonid (siht $R_{tot}=100\,\mathrm{k}\Omega$):
+
 ```
-R1: 100Ω + 220Ω + 4.7kΩ ≈ 5.02kΩ
-R2: 4.7kΩ ≈ 4.70kΩ  
-R3: 4.7kΩ ≈ 4.70kΩ
-R4: 220Ω ≈ 0.22kΩ
+R4: 1kΩ + 1kΩ ≈ 2.00kΩ
+R3: 10kΩ + 10kΩ + 10kΩ + 1kΩ + 1kΩ ≈ 32.0kΩ
+R2: 10kΩ + 10kΩ + 10kΩ + 1kΩ ≈ 31.0kΩ
+R1: 10kΩ + 10kΩ + 10kΩ + 4.7kΩ + 220Ω ≈ 34.92kΩ
 ```
-Ennustatud sõlmpinged: V1=3.29V, V2=1.68V, V3=0.08V (viga ±3%)
+
+Praktilises prototüübis tehti lävede täpsustamine makettplaadil mõõtmiste põhjal (jaotis 6.1).
 
 ### 5.2 Digiprojekt - LTspice simulatsioon
 
 **Eesmärk ja loogika.** Digisisendi laienduse eesmärk on realiseerida loogikafunktsioon $\overline{A} + B$, kus `A` on mehaaniline lüliti (Active Low) ning `B` on tavaline digitaalne signaal (Active High). Praktikas võrreldi kahte varianti: diood-VÕI, kus `A` inverteeritakse enne OR-sõlme, ja RTL VÕI-EI, maketil testiti mõlemad.
+
+**Tõeväärtustabel ja minimaalne avaldis.**
+
+| A (lüliti) | B (signaal) | Väljund |
+|------------|-------------|---------|
+| 0 | 0 | 1 |
+| 0 | 1 | 1 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+Minimaalne DNF: $\overline{A} + B$.
 
 **Skeemi alus ja komponentide valik** 
 
@@ -310,12 +325,12 @@ millestki tingitud täpsusprobleemile. Madaltasemel on reaalsed väärtused 0,02
 **Testimise protokoll (28.09.2025):**
 
 - Uko + Karl: ~30 min makettplaadi koostamine
-- 2-3h brute-force takistuste testimine LED-väljundite saavutamiseks
+- 2–3 h iteratiivne takistite valik ja katsetamine (katse-eksitus meetodil), et saavutada LED-olekud soovitud lävendi juures
 
 **Mõõtetulemused:**
 
-- 300 lx juures: V(out) ≈ 1.7V ✓
-- 500 lx juures: V(out) ≈ 3.25V ✓
+- 300 lx juures: V(out) ≈ 1.7 V ✓
+- 500 lx juures: V(out) ≈ 3.25 V ✓
 - LED-id lülituvad õigesti vastavalt läviväärtustele
 
 **Mõõtetäpsus:** ±10% võrreldes valgusmõõtjaga (nõue täidetud)
@@ -330,21 +345,21 @@ Testitud dioodidega OR-värav + NPN inverter kombinatsiooni. Väljundpinged lang
 
 ### 7.1 Probleemipüstitus
 
-LM324 op-amp **ei ole rail-to-rail**, kaotab ~1.5V positiivsest toitest. 3.3V toite korral max väljund ~1.8V - ei piisa 3V LED-ide juhtimiseks.
+LM324 op-amp ei ole rail-to-rail väljundiga, st väljund ei ulatu positiivse toiterööbani ning maksimaalne väljundpinge sõltub koormusest. Madala toitepinge (nt $3.3 V$) korral võib LED-ide juhtimiseks jääda pingevaru ebapiisavaks.
 
-**Lahendus:** 9V Li-Ion aku → 5V lineaarregulaator (L7805)
+**Lahendus:** $9 V$ sisend (patarei või toiteadapter) → $5 V$ lineaarregulaator (LM7805)
 
 ### 7.2 Kaitseskeemid
 
-1. **PTC kaitse (RXEF010):** 100mA hold, 200mA trip - lühise kaitse
-2. **P-MOSFET (AO3401A):** pöördpolaarsuse kaitse, kadudeta lahendus
-3. **TVS diood (SMBJ9.0A):** ESD ja ülepinge kaitse
+KiCadi lõppversioonis kasutati kaitseks BOM-is toodud komponente:
+1. **PTC kaitse (SMDH1206B005TF):** lühise/ülevoolu kaitse
+2. **TVS diood (SMAJ13A):** impulss- ja ESD-kaitse
 
 ### 7.3 Efektiivsus
 
-- Sisend: 8.4V × 50mA = 420mW
+- Sisend: 9.0V × 50mA = 450mW
 - Väljund: 5.0V × 50mA = 250mW
-- Kasutegur: ~60%
+- Kasutegur: ~55%
 
 ---
 
@@ -365,7 +380,7 @@ Elektriskeem koostati KiCadis, sisaldab:
 | Aspekt | LTspice | KiCad |
 |--------|---------|-------|
 | Toide | Ideaalne 5V | 9V→5V regulaator |
-| Kaitsed | Puuduvad | PTC, MOSFET, TVS |
+| Kaitsed | Puuduvad | PTC, TVS |
 | Pistikud | Puuduvad | Barrel jack, pin headers |
 
 ### 8.3 Komponentide valiku kriteeriumid
@@ -658,7 +673,7 @@ Komponentide nimekiri KiCadi skeemist (`digital/kicad/digital_kicad.kicad_sch`).
 
 ## 13. Kokkuvõte
 
-Mõlemad projektid viidi edukalt lõpule. Analoogprojekt demonstreerib fotodioodiga valgustugevuse mõõtmist ja komparaatoritega tasemete määramist ±10% täpsusega. Digiprojekt näitab, kuidas Arduino sisendeid saab laiendada diskreetsete komponentidega.
+Mõlemad projektid viidi edukalt lõpule. Analoogprojekt demonstreerib fotodioodiga valgustatuse hindamist ja komparaatoritega tasemete määramist ±10% täpsusega. Digiprojekt näitab, kuidas Arduino sisendeid saab laiendada diskreetsete komponentidega.
 
 Peamised õppetunnid:
 1. Simulatsioon on hädavajalik enne makettplaadile minekut
