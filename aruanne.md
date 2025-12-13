@@ -60,13 +60,6 @@ Komponente testiti järgmiselt:
 - **SN74LS02N NOR** ja **SN74LS00N NAND:** testitud loogikafunktsiooni järgi. Loogikafunktsiooni väljundi jälgimiseks kasutati LED-i ja toiteks Arduinot.
 - **1N4148 diood:** multimeetriga mõõdetud dioodrežiimis anoodi ja katoodi pealt
 
-1N4148 diood – multimeetriga mõõdetud dioodrežiimis anoodi ja katoodi pealt
-2N3904 NPN transistor – multimeetriga mõõdetud dioodrežiimis baas-emitter ja baas-kollektor siirdeid.
-Takistid – multimeetriga mõõdetud takistirežiimis.
-Surunupp – multimeetriga testitud juhitavuse režiimis.
-SN74LS02N NOR ja SN74LS00N NAND loogikaskeemid – testitud loogikafunktsiooni järgi. Loogikafunktsiooni väljundi jälgimiseks kasutati LED-i ja toiteks Arduinot.
-
-
 
 ---
 
