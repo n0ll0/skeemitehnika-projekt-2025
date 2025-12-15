@@ -106,9 +106,9 @@ Skeem peab käituma kui OR-värav, arvestades inverteeritud sisendiga.
    - “Voltage-to-LED array” stiilis lahendus
    - *Kombineeriti lahendusega 2*
 
-#### Digiprojekt - kolm lahendust:
+#### 3.3.2 Digiprojekt - kolm lahendust:
 
-Esialgu koostati tõeväärtustabel ja leiti minimaalne DNF (disjunktiivne normaalkuju), mis näitab, mis ventiile on vaja. Sobib ka inverteeritud väljund, sest ühendades selle Arduino sisendiga saab loogikat programmaatiliselt vastupidiseks muuta, seega $\overline{A \cdot \overline{B}} = \overline{A} + B$ (De'Morgan'i seadus). Kokku on 2 võimalikku skeemilahendust: OR-ventiil inverteeritud A-sisendiga või NAND-ventiil inverteeritud B-sisendiga. Antud projektis uuriti kahte loogika perekonda: transistor-takisti (RTL) ja transistor-transistor (TTL) loogikat. RTL kasutab bipolaartransistoreid (BJT), TTL samuti bipolaartransistoreid, ning võrdluseks uuriti ka CMOS-transistoridega lahendusi, kuigi päriselt CMOS'ga makettplaadil pole proovitud, kuna kohvris olid ainult bipolaar.
+Tegemist on digitaalse loogika skeemiga ning esimesena uuriti tõeväärtustabelit ja leiti minimaalne DNF (disjunktiivne normaalkuju), mis näitab, mis ventiilidest saab skeemi teostada. Sobib ka inverteeritud väljund, sest ühendades selle Arduino sisendiga saab loogikat programmaatiliselt vastupidiseks muuta, seega $\overline{(A \cdot \overline{B})} = \overline{A} + B$ (De'Morgan'i seadus). Kokku on 2 võimalikku skeemilahendust: OR-ventiil inverteeritud A-sisendiga või NAND-ventiil inverteeritud B-sisendiga. Antud projektis uuriti kahte loogika perekonda: transistor-takisti (RTL) ja transistor-transistor (TTL) loogikat. RTL kasutab bipolaartransistoreid (BJT), TTL samuti bipolaartransistoreid, ning võrdluseks uuriti ka CMOS-transistoridega lahendusi, kuigi päriselt CMOS'ga makettplaadil pole proovitud, kuna kohvris olid ainult bipolaar.
 
 **Tõeväärtustabel:**
 
