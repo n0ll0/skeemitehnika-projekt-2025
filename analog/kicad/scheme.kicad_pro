@@ -498,7 +498,12 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "Default",
+        "pattern": "+5V"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
@@ -692,7 +697,7 @@
       "meta": {
         "version": 0
       },
-      "model_mode": 4,
+      "model_mode": 3,
       "workbook_filename": ""
     },
     "page_layout_descr_file": "",

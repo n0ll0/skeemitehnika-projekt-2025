@@ -3695,7 +3695,16 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Pins" "1=K 2=A"
+		(property "Sim.Pins" "1=A 2=K"
+			(at 82.55 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
 			(at 82.55 107.95 0)
 			(effects
 				(font
@@ -3847,6 +3856,33 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Device" "TLINE"
+			(at 41.91 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=1+ 2=1- 3=2+"
+			(at 41.91 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" "z0=0 td=0"
+			(at 41.91 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "1458e1f4-28f3-4972-9e04-686ab221ea58")
 		)
@@ -3883,7 +3919,7 @@
 				)
 			)
 		)
-		(property "Value" "BPW34"
+		(property "Value" "${SIM.PARAMS}"
 			(at 35.9029 146.05 0)
 			(effects
 				(font
@@ -3919,6 +3955,42 @@
 			)
 		)
 		(property "Mouser Price/Stock" "1,06"
+			(at 36.83 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "I"
+			(at 36.83 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "DC"
+			(at 36.83 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=+ 2=-"
+			(at 36.83 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" "dc=0.001"
 			(at 36.83 151.13 0)
 			(effects
 				(font
@@ -3997,7 +4069,16 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Pins" "1=K 2=A"
+		(property "Sim.Pins" "1=A 2=K"
+			(at 109.22 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
 			(at 109.22 73.66 0)
 			(effects
 				(font
@@ -4236,7 +4317,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "794d2bc5-3508-414a-979f-9beeac2745dd")
 		(property "Reference" "R10"
 			(at 111.76 64.7699 0)
@@ -4276,6 +4356,24 @@
 		)
 		(property "Description" "Resistor"
 			(at 109.22 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "R"
+			(at 116.078 44.196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=+ 2=-"
+			(at 116.078 44.196 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4485,7 +4583,16 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Pins" "1=K 2=A"
+		(property "Sim.Pins" "1=A 2=K"
+			(at 82.55 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
 			(at 82.55 121.92 0)
 			(effects
 				(font
@@ -4594,7 +4701,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Battery_Cell 9V"
+		(property "Value" "9"
 			(at 36.83 74.3584 0)
 			(effects
 				(font
@@ -4631,6 +4738,33 @@
 			)
 		)
 		(property "Mouser Price/Stock" "1,46"
+			(at 33.02 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "V"
+			(at 33.02 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "DC"
+			(at 33.02 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=+ 2=-"
 			(at 33.02 74.93 0)
 			(effects
 				(font
@@ -4921,7 +5055,16 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Pins" "1=K 2=A"
+		(property "Sim.Device" "SPICE"
+			(at 83.82 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" "model=\".model DLED D(Is=2e-9 N=2.0 Rs=10 Cjo=2p M=0.5 Eg=1.8 Bv=5 Ibv=0.1u)\""
 			(at 83.82 95.25 0)
 			(effects
 				(font
@@ -6696,6 +6839,24 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 45.72 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "R"
+			(at 45.72 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=+ 2=-"
 			(at 45.72 154.94 0)
 			(effects
 				(font
