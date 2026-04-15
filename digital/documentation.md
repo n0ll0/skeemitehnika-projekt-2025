@@ -135,3 +135,4 @@ Mõõtetulemused reaalse dioodi skeemiga. Lisaks mõõtsime väljundit ka Arduin
 | LTSpice    | 0,68       | 5           |               |                | 4,45    |
 | LTSpice    | 4,77       | 0           |               |                | 4,22    |
 | LTSpice    | 4,81       | 5           |               |                | 4,45    |
+
