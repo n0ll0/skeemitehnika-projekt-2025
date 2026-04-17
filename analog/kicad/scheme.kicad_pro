@@ -697,8 +697,8 @@
       "meta": {
         "version": 0
       },
-      "model_mode": 3,
-      "workbook_filename": ""
+      "model_mode": 4,
+      "workbook_filename": "scheme.wbk"
     },
     "page_layout_descr_file": "",
     "plot_directory": "",
